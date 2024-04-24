@@ -6,7 +6,7 @@ import EmptyFavourites from "./empty-favourites";
 import EmptySearch from "./empty-search";
 import { CanvasCard } from "./canvas-card";
 import { NewCanvasButton } from "./new-canvas-button";
-import { api } from "../../../../convex/_generated/api";
+import { api } from "../../../../../convex/_generated/api";
 
 interface CanvasListProps {
     orgId: string;

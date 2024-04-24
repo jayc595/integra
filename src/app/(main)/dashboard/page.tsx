@@ -1,8 +1,7 @@
 "use client";
 
 import { useOrganization } from "@clerk/nextjs";
-import { EmptyOrg } from "./_components/empty-org";
-import { CanvasList } from "./_components/canvas-list";
+
 
 interface DashboardPageProps {
     searchParams: {
@@ -18,16 +17,7 @@ const DashboardPage = ({
 
     return (
         <div className="flex-1 h-[calc(100%-80px)] p-6">
-            {!organization ? (
-                <EmptyOrg></EmptyOrg> )
-                : (
-                    <CanvasList
-                        orgId={organization.id}
-                        query={searchParams}
-                    />
-                    
-                )
-        }
+            Test Dashboard
             
         </div>
     );

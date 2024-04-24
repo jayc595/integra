@@ -15,6 +15,7 @@ const font = Poppins({
 });
 
 export const OrgSidebar = () => {
+    if(window.location.pathname.includes('/dashboard')) return
     const searchParams = useSearchParams();
     const favourites = searchParams.get("favourites");
 
@@ -22,14 +23,14 @@ export const OrgSidebar = () => {
         <div className="hidden lg:flex flex-col space-y-6 w-[206px] pl-5 pt-5">
             <Link href="/">
                 <div className="flex items-center gap-x-2">
-                    <Image src="/logo.svg" alt="Logo" width={60} height={60}>
+                    {/* <Image src="/logo.svg" alt="Logo" width={60} height={60}>
 
-                    </Image>
+                    </Image> */}
                     <span className={cn(
                         "font-semibold text-1xl",
                         font.className
                     )}>
-                        CleverCanvas
+                        Integra.
                     </span>
                 </div>
             </Link>

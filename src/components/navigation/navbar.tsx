@@ -3,6 +3,8 @@
 import { OrganizationSwitcher, UserButton, useOrganization } from "@clerk/nextjs";
 import { InviteButton } from "./invite-button";
 import { SearchInput } from "./search-input";
+import { Book, Headphones } from "lucide-react";
+import { Hint } from "../hint";
 
 export const Navbar = () => {
     const { organization } = useOrganization();
@@ -36,8 +38,13 @@ export const Navbar = () => {
                 }}
             />
             </div>
-            {organization && (<InviteButton></InviteButton>)}
-            
+            {organization && (<InviteButton/>)}
+            <Hint label="Guide" side="bottom" align="center" sideOffset={2}>
+                <Book/>
+            </Hint>
+            <Hint label="Contact support" side="bottom" align="center" sideOffset={2}>
+                <Headphones/>
+            </Hint> 
             <UserButton />
         </div>
     );

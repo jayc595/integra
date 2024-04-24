@@ -12,8 +12,9 @@ import { MoreHorizontal } from "lucide-react";
 
 import { toast } from "sonner";
 import { Actions } from "../actions";
-import { useApiMutation } from "../../../../../hooks/use-api-mutation";
-import { api } from "../../../../../convex/_generated/api";
+import { useApiMutation } from "../../../../../../hooks/use-api-mutation";
+import { api } from "../../../../../../convex/_generated/api";
+
 
 
 interface CanvasCardProps {

@@ -23,15 +23,16 @@ export const SearchInput = () => {
         setValue(e.target.value);
     };
 
-    useEffect(() => {
-        const url = qs.stringifyUrl({
-            url: "/board",
-            query: {
-                search: debouncedValue,
-            },
-        }, { skipEmptyString: true, skipNull: true })
-        router.push(url)
-    }, [debouncedValue, router]);
+    //@TODO - the below currently causes an issue where it'll refresh to /board.
+    // useEffect(() => {
+    //     const url = qs.stringifyUrl({
+    //         url: "/board",
+    //         query: {
+    //             search: debouncedValue,
+    //         },
+    //     }, { skipEmptyString: true, skipNull: true })
+    //     router.push(url)
+    // }, [debouncedValue, router]);
 
     return (
         <div className="w-full relative">

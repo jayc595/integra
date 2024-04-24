@@ -4,16 +4,16 @@ import { Navbar } from "@/components/navigation/navbar";
 
 
 
-interface DashboardLayoutProps {
+interface MainLayoutProps {
     children: React.ReactNode;
 }
 
-const BoardDashboardLayout = ({
+const MainLayout = ({
     children, 
-}: DashboardLayoutProps) => {
+}: MainLayoutProps) => {
     return (
         <main className="h-full">
-            <Sidebar></Sidebar>
+            <Sidebar/>
             <div className="pl-[60px] h-full">
                 <div className="flex gap-x-3 h-full">
                     <OrgSidebar />
@@ -27,4 +27,4 @@ const BoardDashboardLayout = ({
     )
 }
 
-export default BoardDashboardLayout;
+export default MainLayout;
