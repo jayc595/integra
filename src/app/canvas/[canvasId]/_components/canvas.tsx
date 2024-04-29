@@ -12,6 +12,7 @@ import { LayerPreview } from "./layer-preview";
 import { useHistory, useCanRedo, useCanUndo, useMutation, useStorage, useOthersMapped } from "../../../../../liveblocks.config";
 import { CanvasState, CanvasMode, Camera, Colour, layerType, Point } from "../../../../../types/canvas";
 import { useApiMutation } from "../../../../../hooks/use-api-mutation";
+import { SelectionBox } from "./selection-box";
 
 const MAX_LAYERS = 100;
 
@@ -32,9 +33,9 @@ export const Canvas = ({
 
 
     const [lastUsedColour, setLastUsedColour] = useState<Colour>({
-        r: 0,
-        g: 0,
-        b: 0,
+        r: 255,
+        g: 255,
+        b: 255,
     });
 
     const insertLayer = useMutation((
@@ -157,6 +158,7 @@ export const Canvas = ({
                     {layerIds.map((layerId) => (
                         <LayerPreview key={layerId} id={layerId} onLayerPointerDown={onLayerPointerDown} selectionColour={layerIdsToColourSelection[layerId]}></LayerPreview>
                     ))}
+                    <SelectionBox onResizeHandlePointerDown={() => {}}/>
                     <CursorExistance></CursorExistance>
                 </g>
             </svg>
