@@ -7,11 +7,17 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 
-export const EmptyOrg = () => {
+type EmptyOrgProps = {
+    name: string;
+}
+
+export const EmptyOrg = ({
+    name
+} : EmptyOrgProps) => {
     return (
         <div className="h-full flex flex-col items-center justify-center">
             <Image src="/elements.svg" alt="empty" height={200} width={200}></Image>
-            <h2 className="text-2xl font-semibold mt-6">Welcome to CleverCanvas</h2>
+            <h2 className="text-2xl font-semibold mt-6">Welcome to {name}</h2>
             <p className="text-muted-foreground text-sm mt-2">Create an organization to get started.</p>
             <div className="mt-6">
                 <Dialog>

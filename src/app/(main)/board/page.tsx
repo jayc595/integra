@@ -1,7 +1,7 @@
 "use client";
 
 import { useOrganization } from "@clerk/nextjs";
-import { EmptyOrg } from "./_components/empty-org";
+import { EmptyOrg } from "../../../components/empty-org";
 import { CanvasList } from "./_components/canvas-list";
 
 interface BoardPageProps {
@@ -19,7 +19,7 @@ const BoardPage = ({
     return (
         <div className="flex-1 h-[calc(100%-80px)] p-6">
             {!organization ? (
-                <EmptyOrg></EmptyOrg> )
+                <EmptyOrg name="Integra Board"/> )
                 : (
                     <CanvasList
                         orgId={organization.id}
