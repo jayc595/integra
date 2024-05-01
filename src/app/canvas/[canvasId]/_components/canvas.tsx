@@ -13,6 +13,7 @@ import { useHistory, useCanRedo, useCanUndo, useMutation, useStorage, useOthersM
 import { CanvasState, CanvasMode, Camera, Colour, layerType, Point, Side, XYWH } from "../../../../../types/canvas";
 import { useApiMutation } from "../../../../../hooks/use-api-mutation";
 import { SelectionBox } from "./selection-box";
+import { SelectionToolbar } from "./selection-toolbar";
 
 const MAX_LAYERS = 100;
 
@@ -263,6 +264,7 @@ export const Canvas = ({
             <Info canvasId={canvasId}></Info>
             <Participant></Participant>
             <Toolbar canvasState={canvasState} setCanvasState={setCanvasState} canRedo={canRedo} canUndo={canUndo} redo={history.redo} undo={history.undo}></Toolbar>
+            <SelectionToolbar camera={camera} setLastUsedColour={setLastUsedColour}/>
             <svg className="h-[100vh] w-[100vw]" onWheel={onWheel} onPointerMove={onPointerMove} onPointerLeave={onPointerLeave} onPointerDown={onPointerDown} onPointerUp={onPointerUp}>
                 <g style={{transform: `translate(${camera.x}px, ${camera.y}px)`}}>
                     {layerIds.map((layerId) => (
