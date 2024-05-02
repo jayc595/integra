@@ -9,6 +9,7 @@ import { ColourPicker } from "./colour-picker";
 import { useDeleteLayer } from "../../../../../hooks/use-delete-layer";
 import { Hint } from "@/components/hint";
 import { BringToFront, SendToBack, Trash2 } from "lucide-react";
+import { setFillColour } from "../../../../../hooks/use-fill-colour";
 
 interface SelectionToolbarProps {
     camera: Camera;
@@ -23,20 +24,7 @@ export const SelectionToolbar = memo(({
 
     const selectionBounds = useSelectionBounds();
 
-    const setFillColour = useMutation((
-        { storage },
-        fill: Colour
-    ) => {
-        const liveLayers = storage.get("layers");
-        setLastUsedColour(fill);
-
-        selection.forEach((id) => {
-            liveLayers.get(id)?.set("fill", fill);
-        })
-    }, [
-        selection, 
-        setLastUsedColour
-    ]);
+    const fillColour = setFillColour(setLastUsedColour);
 
     const deleteLayers = useDeleteLayer();
 
@@ -55,7 +43,7 @@ export const SelectionToolbar = memo(({
                 calc(${y - 16}px - 100%)
             )`
         }}>
-            <ColourPicker onChange={setFillColour}/>
+            <ColourPicker onChange={fillColour}/>
             <div className="flex flex-col gap-y-0.5">
                 <Hint label="Bring to font">
                     <Button variant="canvas" size="icon">
