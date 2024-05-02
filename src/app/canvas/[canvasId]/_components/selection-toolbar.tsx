@@ -4,6 +4,7 @@ import { memo } from "react";
 import { Camera, Colour } from "../../../../../types/canvas";
 import { useSelf } from "../../../../../liveblocks.config";
 import { useSelectionBounds } from "../../../../../hooks/use-selections-bounds";
+import { ColourPicker } from "./colour-picker";
 
 interface SelectionToolbarProps {
     camera: Camera;
@@ -33,8 +34,7 @@ export const SelectionToolbar = memo(({
                 calc(${y - 16}px - 100%)
             )`
         }}>
-            In progress selection toolbar
-            {/* @TODO - add colour picker */}
+            <ColourPicker onChange={() => {}}/>
         </div>
     )
 })
