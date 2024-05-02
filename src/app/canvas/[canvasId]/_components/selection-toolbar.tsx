@@ -16,11 +16,13 @@ import { useBringToFront } from "../../../../../hooks/use-bring-to-front";
 interface SelectionToolbarProps {
     camera: Camera;
     setLastUsedColour: (colour: Colour) => void;
+    showQuickActionMenu: boolean;
 };
 
 export const SelectionToolbar = memo(({
     camera,
-    setLastUsedColour
+    setLastUsedColour,
+    showQuickActionMenu
 } : SelectionToolbarProps) => {
     const selection = useSelf((me) => me.presence.selection);
 
@@ -31,6 +33,10 @@ export const SelectionToolbar = memo(({
     const deleteLayers = useDeleteLayer();
     const sendToBack = useSendToBack();
     const bringToFront = useBringToFront();
+
+    if(!showQuickActionMenu){
+        return null;
+    }
 
     if (!selectionBounds) {
         return null;

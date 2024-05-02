@@ -1,6 +1,7 @@
 import { Circle, Delete, MousePointer, MousePointer2, Pencil, Redo, Square, StickyNote, Trash2, Triangle, Type, Undo, SquareMenu } from "lucide-react"
 import { ToolButtons } from "./tool-buttons"
 import { CanvasMode, CanvasState, layerType } from "../../../../../types/canvas";
+import { Separator } from "@/components/ui/separator";
 
 interface ToolbarProps {
     canvasState: CanvasState;
@@ -9,6 +10,8 @@ interface ToolbarProps {
     redo: () => void;
     canUndo: boolean;
     canRedo: boolean;
+    showActionBar: boolean;
+    toggleActionBar: () => void; 
 }
 
 export const Toolbar = ({
@@ -17,7 +20,9 @@ export const Toolbar = ({
     undo,
     redo,
     canUndo,
-    canRedo
+    canRedo,
+    showActionBar,
+    toggleActionBar
 }: ToolbarProps) => {
     return(
         <div className="absolute top-[50%] -translate-y-[50%] left-2 flex flex-col gap-y-4">
@@ -40,10 +45,10 @@ export const Toolbar = ({
             <div className="bg-white rounded-md p-1.5 flex flex-col items-center shadow-md">
                 <ToolButtons label="Undo" icon={Undo} onClick={undo} isDisabled={!canUndo}></ToolButtons>
                 <ToolButtons label="Redo" icon={Redo} onClick={redo} isDisabled={!canRedo}></ToolButtons>
-                {/* @TODO: Add toggle for the quick action menu. */}
-                {/* <ToolButtons label="Toggle Quick Action Menu" icon={SquareMenu} onClick={() => {}} isActive={false}></ToolButtons> */}
                 <ToolButtons label="Delete" icon={Trash2} onClick={() => {}} isActive={false}></ToolButtons>
-                </div>
+                <Separator className="mb-2"/>
+                <ToolButtons label="Toggle Quick Action Menu" icon={SquareMenu} onClick={toggleActionBar} isActive={showActionBar}></ToolButtons>
+            </div>
         </div>
     )
 }

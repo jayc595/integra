@@ -268,12 +268,14 @@ export const Canvas = ({
     const sendToBack = useSendToBack();
     const bringToFront = useBringToFront();
 
+    const [showActionBar, setShowActionBar] = useState(true);
+
     return(
         <main className="h-full w-full relative bg-neutral-100 touch-none">
             <Info canvasId={canvasId}></Info>
             <Participant></Participant>
-            <Toolbar canvasState={canvasState} setCanvasState={setCanvasState} canRedo={canRedo} canUndo={canUndo} redo={history.redo} undo={history.undo}></Toolbar>
-            <SelectionToolbar camera={camera} setLastUsedColour={setLastUsedColour}/>
+            <Toolbar canvasState={canvasState} setCanvasState={setCanvasState} canRedo={canRedo} canUndo={canUndo} redo={history.redo} undo={history.undo} showActionBar={showActionBar} toggleActionBar={() => setShowActionBar(prevState => !prevState)}></Toolbar>
+            <SelectionToolbar showQuickActionMenu={showActionBar} camera={camera} setLastUsedColour={setLastUsedColour}/>
             <ContextMenu>
                 <ContextMenuTrigger>
                     <svg className="h-[100vh] w-[100vw]" onWheel={onWheel} onPointerMove={onPointerMove} onPointerLeave={onPointerLeave} onPointerDown={onPointerDown} onPointerUp={onPointerUp}>
