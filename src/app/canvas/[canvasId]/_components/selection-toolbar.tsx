@@ -10,6 +10,8 @@ import { useDeleteLayer } from "../../../../../hooks/use-delete-layer";
 import { Hint } from "@/components/hint";
 import { BringToFront, SendToBack, Trash2 } from "lucide-react";
 import { setFillColour } from "../../../../../hooks/use-fill-colour";
+import { useSendToBack } from "../../../../../hooks/use-send-to-back";
+import { useBringToFront } from "../../../../../hooks/use-bring-to-front";
 
 interface SelectionToolbarProps {
     camera: Camera;
@@ -27,6 +29,8 @@ export const SelectionToolbar = memo(({
     const fillColour = setFillColour(setLastUsedColour);
 
     const deleteLayers = useDeleteLayer();
+    const sendToBack = useSendToBack();
+    const bringToFront = useBringToFront();
 
     if (!selectionBounds) {
         return null;
@@ -46,12 +50,12 @@ export const SelectionToolbar = memo(({
             <ColourPicker onChange={fillColour}/>
             <div className="flex flex-col gap-y-0.5">
                 <Hint label="Bring to font">
-                    <Button variant="canvas" size="icon">
+                    <Button onClick={bringToFront} variant="canvas" size="icon">
                         <BringToFront/>
                     </Button>
                 </Hint>
                 <Hint label="Send to back" side="bottom">
-                    <Button variant="canvas" size="icon">
+                    <Button onClick={sendToBack} variant="canvas" size="icon">
                         <SendToBack/>
                     </Button>
                 </Hint>

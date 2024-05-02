@@ -17,6 +17,8 @@ import { SelectionToolbar } from "./selection-toolbar";
 import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuSeparator, ContextMenuTrigger } from "@/components/ui/context-menu";
 import { BringToFront, ClipboardPaste, Copy, SendToBack, Trash2 } from "lucide-react";
 import { useDeleteLayer } from "../../../../../hooks/use-delete-layer";
+import { useSendToBack } from "../../../../../hooks/use-send-to-back";
+import { useBringToFront } from "../../../../../hooks/use-bring-to-front";
 
 const MAX_LAYERS = 100;
 
@@ -263,6 +265,8 @@ export const Canvas = ({
     }, [selections]);
 
     const deleteLayers = useDeleteLayer();
+    const sendToBack = useSendToBack();
+    const bringToFront = useBringToFront();
 
     return(
         <main className="h-full w-full relative bg-neutral-100 touch-none">
@@ -286,8 +290,8 @@ export const Canvas = ({
                     <ContextMenuItem><Copy className="pr-2"/>Copy</ContextMenuItem>
                     <ContextMenuItem><ClipboardPaste className="pr-2"/>Paste</ContextMenuItem>
                     <ContextMenuSeparator />
-                    <ContextMenuItem><BringToFront className="pr-2"/>Bring to front</ContextMenuItem>
-                    <ContextMenuItem><SendToBack className="pr-2"/>Send to back</ContextMenuItem>
+                    <ContextMenuItem onClick={bringToFront}><BringToFront className="pr-2"/>Bring to front</ContextMenuItem>
+                    <ContextMenuItem onClick={sendToBack}><SendToBack className="pr-2"/>Send to back</ContextMenuItem>
                     <ContextMenuSeparator />
                     <ContextMenuItem onClick={deleteLayers}><Trash2 className="pr-2"/>Delete</ContextMenuItem>
                 </ContextMenuContent>
