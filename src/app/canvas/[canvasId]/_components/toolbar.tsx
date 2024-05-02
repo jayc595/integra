@@ -1,4 +1,4 @@
-import { Circle, Delete, MousePointer, MousePointer2, Pencil, Redo, Square, StickyNote, Trash2, Triangle, Type, Undo } from "lucide-react"
+import { Circle, Delete, MousePointer, MousePointer2, Pencil, Redo, Square, StickyNote, Trash2, Triangle, Type, Undo, SquareMenu } from "lucide-react"
 import { ToolButtons } from "./tool-buttons"
 import { CanvasMode, CanvasState, layerType } from "../../../../../types/canvas";
 
@@ -40,6 +40,8 @@ export const Toolbar = ({
             <div className="bg-white rounded-md p-1.5 flex flex-col items-center shadow-md">
                 <ToolButtons label="Undo" icon={Undo} onClick={undo} isDisabled={!canUndo}></ToolButtons>
                 <ToolButtons label="Redo" icon={Redo} onClick={redo} isDisabled={!canRedo}></ToolButtons>
+                {/* @TODO: Add toggle for the quick action menu. */}
+                {/* <ToolButtons label="Toggle Quick Action Menu" icon={SquareMenu} onClick={() => {}} isActive={false}></ToolButtons> */}
                 <ToolButtons label="Delete" icon={Trash2} onClick={() => {}} isActive={false}></ToolButtons>
                 </div>
         </div>

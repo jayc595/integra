@@ -14,6 +14,9 @@ import { CanvasState, CanvasMode, Camera, Colour, layerType, Point, Side, XYWH }
 import { useApiMutation } from "../../../../../hooks/use-api-mutation";
 import { SelectionBox } from "./selection-box";
 import { SelectionToolbar } from "./selection-toolbar";
+import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuSeparator, ContextMenuTrigger } from "@/components/ui/context-menu";
+import { BringToFront, ClipboardPaste, Copy, SendToBack, Trash2 } from "lucide-react";
+import { useDeleteLayer } from "../../../../../hooks/use-delete-layer";
 
 const MAX_LAYERS = 100;
 
@@ -259,21 +262,36 @@ export const Canvas = ({
         return layerIdsToColourSelection;
     }, [selections]);
 
+    const deleteLayers = useDeleteLayer();
+
     return(
         <main className="h-full w-full relative bg-neutral-100 touch-none">
             <Info canvasId={canvasId}></Info>
             <Participant></Participant>
             <Toolbar canvasState={canvasState} setCanvasState={setCanvasState} canRedo={canRedo} canUndo={canUndo} redo={history.redo} undo={history.undo}></Toolbar>
             <SelectionToolbar camera={camera} setLastUsedColour={setLastUsedColour}/>
-            <svg className="h-[100vh] w-[100vw]" onWheel={onWheel} onPointerMove={onPointerMove} onPointerLeave={onPointerLeave} onPointerDown={onPointerDown} onPointerUp={onPointerUp}>
-                <g style={{transform: `translate(${camera.x}px, ${camera.y}px)`}}>
-                    {layerIds.map((layerId) => (
-                        <LayerPreview key={layerId} id={layerId} onLayerPointerDown={onLayerPointerDown} selectionColour={layerIdsToColourSelection[layerId]}></LayerPreview>
-                    ))}
-                    <SelectionBox onResizeHandlePointerDown={onResizeHandlePointerDown}/>
-                    <CursorExistance></CursorExistance>
-                </g>
-            </svg>
+            <ContextMenu>
+                <ContextMenuTrigger>
+                    <svg className="h-[100vh] w-[100vw]" onWheel={onWheel} onPointerMove={onPointerMove} onPointerLeave={onPointerLeave} onPointerDown={onPointerDown} onPointerUp={onPointerUp}>
+                        <g style={{transform: `translate(${camera.x}px, ${camera.y}px)`}}>
+                            {layerIds.map((layerId) => (
+                                <LayerPreview key={layerId} id={layerId} onLayerPointerDown={onLayerPointerDown} selectionColour={layerIdsToColourSelection[layerId]}></LayerPreview>
+                        ))}
+                            <SelectionBox onResizeHandlePointerDown={onResizeHandlePointerDown}/>
+                            <CursorExistance></CursorExistance>
+                        </g>
+                    </svg>
+                </ContextMenuTrigger>
+                <ContextMenuContent className="min-w-[264px]">
+                    <ContextMenuItem><Copy className="pr-2"/>Copy</ContextMenuItem>
+                    <ContextMenuItem><ClipboardPaste className="pr-2"/>Paste</ContextMenuItem>
+                    <ContextMenuSeparator />
+                    <ContextMenuItem><BringToFront className="pr-2"/>Bring to front</ContextMenuItem>
+                    <ContextMenuItem><SendToBack className="pr-2"/>Send to back</ContextMenuItem>
+                    <ContextMenuSeparator />
+                    <ContextMenuItem onClick={deleteLayers}><Trash2 className="pr-2"/>Delete</ContextMenuItem>
+                </ContextMenuContent>
+            </ContextMenu>
         </main>
     );
 };

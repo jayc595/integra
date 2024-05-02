@@ -8,7 +8,7 @@ import { useSelectionBounds } from "../../../../../hooks/use-selections-bounds";
 import { ColourPicker } from "./colour-picker";
 import { useDeleteLayer } from "../../../../../hooks/use-delete-layer";
 import { Hint } from "@/components/hint";
-import { Trash2 } from "lucide-react";
+import { BringToFront, SendToBack, Trash2 } from "lucide-react";
 
 interface SelectionToolbarProps {
     camera: Camera;
@@ -56,6 +56,18 @@ export const SelectionToolbar = memo(({
             )`
         }}>
             <ColourPicker onChange={setFillColour}/>
+            <div className="flex flex-col gap-y-0.5">
+                <Hint label="Bring to font">
+                    <Button variant="canvas" size="icon">
+                        <BringToFront/>
+                    </Button>
+                </Hint>
+                <Hint label="Send to back" side="bottom">
+                    <Button variant="canvas" size="icon">
+                        <SendToBack/>
+                    </Button>
+                </Hint>
+            </div>
             <div className="flex items-center pl-2 ml-2 border-l border-neutral-200">
                 <Hint label="Delete">
                     <Button variant="canvas" size="icon" onClick={deleteLayers}>
