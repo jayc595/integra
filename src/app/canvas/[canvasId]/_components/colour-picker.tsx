@@ -13,15 +13,15 @@ export const ColourPicker = ({
 }: ColourPickerProps) => {
     return (
         <div className="flex flex-wrap gap-2 items-center max-w-[164px] pr-2 mr-2 border-r border-neutral-200">
-            {/* TODO: Define colours. */}
+            {/* TODO: Add the below to an array, then only show if the current layer doesn't have the same colour. */}
             <ColourButton colour={{ r: 243, g: 82, b: 35 }} onClick={onChange}/>
-            <ColourButton colour={{ r: 243, g: 82, b: 35 }} onClick={onChange}/>
-            <ColourButton colour={{ r: 243, g: 82, b: 35 }} onClick={onChange}/>
-            <ColourButton colour={{ r: 243, g: 82, b: 35 }} onClick={onChange}/>
-            <ColourButton colour={{ r: 243, g: 82, b: 35 }} onClick={onChange}/>
-            <ColourButton colour={{ r: 243, g: 82, b: 35 }} onClick={onChange}/>
-            <ColourButton colour={{ r: 243, g: 82, b: 35 }} onClick={onChange}/>
-            <ColourButton colour={{ r: 243, g: 82, b: 35 }} onClick={onChange}/>
+            <ColourButton colour={{ r: 255, g: 255, b: 255 }} onClick={onChange}/>
+            <ColourButton colour={{ r: 0, g: 0, b: 0 }} onClick={onChange}/>
+            <ColourButton colour={{ r: 148, g: 0, b: 211 }} onClick={onChange}/>
+            <ColourButton colour={{ r: 0, g: 0, b: 255 }} onClick={onChange}/>
+            <ColourButton colour={{ r: 0, g: 191, b: 255 }} onClick={onChange}/>
+            <ColourButton colour={{ r: 255, g: 165, b: 0 }} onClick={onChange}/>
+            <ColourButton colour={{ r: 0, g: 128, b: 0 }} onClick={onChange}/>
         </div>
     )
 };
