@@ -53,7 +53,7 @@ export type EllipseLayer = {
 };
 
 export type TriangleLayer = {
-    type: layerType.Ellipse;
+    type: layerType.Triangle;
     x: number;
     y: number;
     height: number;

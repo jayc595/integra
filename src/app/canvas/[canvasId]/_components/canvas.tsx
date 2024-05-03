@@ -46,7 +46,7 @@ export const Canvas = ({
 
     const insertLayer = useMutation((
         { storage, setMyPresence },
-        LayerType: layerType.Ellipse | layerType.Rectangle | layerType.Text | layerType.StickyNote,
+        LayerType: layerType.Ellipse | layerType.Rectangle | layerType.Triangle | layerType.Text | layerType.StickyNote,
         position: Point,
       ) => {
         const liveLayers = storage.get("layers");
