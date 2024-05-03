@@ -24,12 +24,12 @@ export const ConvexClientProvider = ({
     return (
         <ClerkProvider>
             <ConvexProviderWithClerk useAuth={useAuth} client={convex}>
-                <Authenticated>
+                 <Authenticated>
                     {children}
                 </Authenticated>
-                <AuthLoading>
+                 <AuthLoading> 
                     <Loading></Loading>
-                </AuthLoading>
+                 </AuthLoading> 
             </ConvexProviderWithClerk>
         </ClerkProvider>
     );
