@@ -312,6 +312,15 @@ export const Canvas = ({
                                 <LayerPreview key={layerId} id={layerId} onLayerPointerDown={onLayerPointerDown} selectionColour={layerIdsToColourSelection[layerId]}></LayerPreview>
                         ))}
                             <SelectionBox onResizeHandlePointerDown={onResizeHandlePointerDown}/>
+                            {canvasState.mode === CanvasMode.SelectionNet && canvasState.current != null && (
+                                <rect
+                                    className="fill-blue-200/5 stroke-blue-200 stroke-1"
+                                    x={Math.min(canvasState.origin.x, canvasState.current.x)}
+                                    y={Math.min(canvasState.origin.y, canvasState.current.y)}
+                                    width={Math.abs(canvasState.origin.x - canvasState.current.x)}
+                                    height={Math.abs(canvasState.origin.y - canvasState.current.y)}
+                                />
+                            )}
                             <CursorExistance></CursorExistance>
                         </g>
                     </svg>
