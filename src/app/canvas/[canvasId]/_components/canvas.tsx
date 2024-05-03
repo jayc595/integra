@@ -5,7 +5,7 @@ import { Info } from "./info";
 import { Participant } from "./participant";
 import { Toolbar } from "./toolbar";
 import { CursorExistance } from "./cursor-existance";
-import { connectionIdToColourMaping, pointerEventToCanvasPoint, resizeBounds } from "@/lib/utils";
+import { connectionIdToColourMaping, findIntersectingLayersWithRectangle, pointerEventToCanvasPoint, resizeBounds } from "@/lib/utils";
 import { nanoid } from "nanoid";
 import { LiveObject } from "@liveblocks/client";
 import { LayerPreview } from "./layer-preview";
@@ -133,7 +133,31 @@ export const Canvas = ({
         if(self.presence.selection.length > 0){
             setMyPresence({ selection: [] }, { addToHistory: true });
         }
-    }, [])
+    }, []);
+
+    const startSelectionNet = useCallback((
+        current: Point,
+        origin: Point,
+    ) => {
+        if(Math.abs(current.x - origin.x) + Math.abs(current.y - origin.y) > 5){
+            setCanvasState({mode: CanvasMode.SelectionNet, origin, current});
+        }
+
+    }, []);
+
+    const updateSelectionNet = useMutation((
+        { storage, setMyPresence },
+        current: Point,
+        origin: Point,
+    ) => {
+        const layers = storage.get("layers").toImmutable();
+        setCanvasState({mode: CanvasMode.SelectionNet, origin, current});
+
+        const ids = findIntersectingLayersWithRectangle(layerIds, layers, origin, current);
+
+        setMyPresence({ selection: ids });
+
+    }, [layerIds]);
 
     const resizeSelectedLayer = useMutation((
         { storage, self },
@@ -164,7 +188,11 @@ export const Canvas = ({
 
         const current = pointerEventToCanvasPoint(e, camera);
 
-        if(canvasState.mode == CanvasMode.Translating){
+        if (canvasState.mode === CanvasMode.Pressing) {
+            startSelectionNet(current, canvasState.origin);
+        } else if(canvasState.mode === CanvasMode.SelectionNet){
+            updateSelectionNet(current, canvasState.origin);
+        }else if(canvasState.mode == CanvasMode.Translating){
             translateSelectedLayer(current);
         } else if(canvasState.mode === CanvasMode.Resizing){
             resizeSelectedLayer(current);

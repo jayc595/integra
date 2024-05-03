@@ -46,7 +46,7 @@ export const Toolbar = ({
                 <ToolButtons label="Undo" icon={Undo} onClick={undo} isDisabled={!canUndo}></ToolButtons>
                 <ToolButtons label="Redo" icon={Redo} onClick={redo} isDisabled={!canRedo}></ToolButtons>
                 <ToolButtons label="Delete" icon={Trash2} onClick={() => {}} isActive={false}></ToolButtons>
-                <Separator className="mb-2"/>
+                <Separator className="mb-2 mt-2"/>
                 <ToolButtons label="Toggle Quick Action Menu" icon={SquareMenu} onClick={toggleActionBar} isActive={showActionBar}></ToolButtons>
             </div>
         </div>
