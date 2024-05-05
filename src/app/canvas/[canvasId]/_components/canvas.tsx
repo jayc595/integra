@@ -214,6 +214,7 @@ export const Canvas = ({
         liveLayers.set(id, new LiveObject(penPointsToPathLayer(pencilDraft, lastUsedColour)));
 
         const liveLayerIds = storage.get("layerIds");
+        liveLayerIds.push(id);
         setMyPresence({ pencilDraft: null });
         setCanvasState({ mode: CanvasMode.Pencil });
     }, [lastUsedColour]);

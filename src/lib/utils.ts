@@ -106,7 +106,6 @@ export function findIntersectingLayersWithRectangle(
 
 export function getContrastingTextColour(colour: Colour){
   const luminance = 0.299 * colour.r + 0.587 * colour.g + 0.114 * colour.b;
-  console.log(luminance);
   return luminance > 182 ? "#000" : "#fff";
 }
 
@@ -152,8 +151,8 @@ export function penPointsToPathLayer(
     height: bottom - top,
     fill: colour,
     points: points.map(([x, y, pressure]) => [x - left, y - top, pressure])
-  }
-}
+  };
+};
 
 export function getSvgPathFromStroke(stroke: number[][]){
   if(!stroke.length) return "";
