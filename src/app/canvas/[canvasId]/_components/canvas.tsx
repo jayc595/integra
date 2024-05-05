@@ -5,11 +5,11 @@ import { Info } from "./info";
 import { Participant } from "./participant";
 import { Toolbar } from "./toolbar";
 import { CursorExistance } from "./cursor-existance";
-import { connectionIdToColourMaping, findIntersectingLayersWithRectangle, penPointsToPathLayer, pointerEventToCanvasPoint, resizeBounds } from "@/lib/utils";
+import { colourToCss, connectionIdToColourMaping, findIntersectingLayersWithRectangle, penPointsToPathLayer, pointerEventToCanvasPoint, resizeBounds } from "@/lib/utils";
 import { nanoid } from "nanoid";
 import { LiveObject } from "@liveblocks/client";
 import { LayerPreview } from "./layer-preview";
-import { useHistory, useCanRedo, useCanUndo, useMutation, useStorage, useOthersMapped } from "../../../../../liveblocks.config";
+import { useHistory, useCanRedo, useCanUndo, useMutation, useStorage, useOthersMapped, useSelf } from "../../../../../liveblocks.config";
 import { CanvasState, CanvasMode, Camera, Colour, layerType, Point, Side, XYWH } from "../../../../../types/canvas";
 import { useApiMutation } from "../../../../../hooks/use-api-mutation";
 import { SelectionBox } from "./selection-box";
@@ -19,6 +19,7 @@ import { BringToFront, ClipboardPaste, Copy, SendToBack, Trash2 } from "lucide-r
 import { useDeleteLayer } from "../../../../../hooks/use-delete-layer";
 import { useSendToBack } from "../../../../../hooks/use-send-to-back";
 import { useBringToFront } from "../../../../../hooks/use-bring-to-front";
+import { Path } from "./path";
 
 const MAX_LAYERS = 100;
 
@@ -31,7 +32,7 @@ export const Canvas = ({
     canvasId,
 } : CanvasProps) => {
     const layerIds = useStorage((root) => root.layerIds);
-
+    const pencilDraft = useSelf((me) => me.presence.pencilDraft);
 
     const history = useHistory();
     const canUndo = useCanUndo();
@@ -384,6 +385,14 @@ export const Canvas = ({
                                 />
                             )}
                             <CursorExistance></CursorExistance>
+                            {pencilDraft != null && pencilDraft.length > 0 && (
+                                <Path
+                                    points={pencilDraft}
+                                    fill={colourToCss(lastUsedColour)}
+                                    x={0}
+                                    y={0}
+                                />
+                            )}
                         </g>
                     </svg>
                 </ContextMenuTrigger>
