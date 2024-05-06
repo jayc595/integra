@@ -163,7 +163,7 @@ const EditorCanvas = (props: Props) => {
   )
 
   return (
-    <ResizablePanelGroup direction="horizontal" className='border-t-2'>
+    <ResizablePanelGroup direction="horizontal" className='border-2'>
       <ResizablePanel defaultSize={80}>
         {/* @TODO: We shouldn't specify 93vh. Instead we should be using h-full but this isn't showing the canvas - to debug later. */}
         <div className="flex h-[93vh] items-center justify-center">
