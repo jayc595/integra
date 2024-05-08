@@ -12,6 +12,7 @@ import ReactFlow, {
   applyNodeChanges,
   applyEdgeChanges,
   addEdge,
+  
 } from 'reactflow'
 import 'reactflow/dist/style.css'
 import EditorCanvasCardSingle from './editor-canvas-card-single'
@@ -28,6 +29,8 @@ import { useEditor } from '../../../../../../../providers/editor-provider'
 import { EditorCanvasDefaultCardTypes } from '@/lib/consts'
 import FlowInstance from './flow-instance'
 import EditorCanvasSidebar from './editor-canvas-sidebar'
+import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle } from '@/components/ui/drawer'
+import { Button } from '@/components/ui/button'
 
 type Props = {}
 
@@ -68,6 +71,8 @@ const EditorCanvas = (props: Props) => {
     (params: Edge | Connection) => setEdges((eds) => addEdge(params, eds)),
     []
   )
+
+  
 
   const onDrop = useCallback(
     (event: any) => {
@@ -120,6 +125,7 @@ const EditorCanvas = (props: Props) => {
   )
 
   const handleClickCanvas = () => {
+    console.log("canvas clicked")
     dispatch({
       type: 'SELECTED_ELEMENT',
       payload: {
@@ -139,6 +145,31 @@ const EditorCanvas = (props: Props) => {
       },
     })
   }
+
+  const [showCustomizationDrawer, setShowCustomizationDrawer] = useState(false);
+
+  const onNodeClick = () => {
+    setShowCustomizationDrawer(true)
+    dispatch({
+      type: 'SELECTED_ELEMENT',
+      payload: {
+        element: {
+          data: {
+            completed: false,
+            current: false,
+            description: '',
+            metadata: {},
+            title: '',
+            type: 'Trigger',
+          },
+          id: '',
+          position: { x: 0, y: 0 },
+          type: 'Trigger',
+        },
+      },
+    })
+  }
+
 
   useEffect(() => {
     dispatch({ type: 'LOAD_DATA', payload: { edges, elements: nodes } })
@@ -173,7 +204,6 @@ const EditorCanvas = (props: Props) => {
           >
             
               <ReactFlow
-                className="w-[300px]"
                 onDrop={onDrop}
                 onDragOver={onDragOver}
                 nodes={state.editor.elements}
@@ -181,9 +211,11 @@ const EditorCanvas = (props: Props) => {
                 edges={edges}
                 onEdgesChange={onEdgesChange}
                 onConnect={onConnect}
+                elementsSelectable={true}
+                onNodeClick={onNodeClick}
                 onInit={setReactFlowInstance}
                 fitView
-                onClick={handleClickCanvas}
+                onPaneClick={handleClickCanvas}
                 nodeTypes={nodeTypes}
               >
                 <Controls position="top-left" />
@@ -216,6 +248,20 @@ const EditorCanvas = (props: Props) => {
             <EditorCanvasSidebar nodes={nodes} />
           </FlowInstance>
       </ResizablePanel>
+      <Drawer open={showCustomizationDrawer} onOpenChange={setShowCustomizationDrawer}>
+        <DrawerContent>
+          <DrawerHeader>
+            <DrawerTitle>Are you absolutely sure?</DrawerTitle>
+            <DrawerDescription>This action cannot be undone.</DrawerDescription>
+          </DrawerHeader>
+          <DrawerFooter>
+            <Button>Submit</Button>
+              <DrawerClose>
+                <Button variant="outline">Cancel</Button>
+              </DrawerClose>
+          </DrawerFooter>
+        </DrawerContent>
+      </Drawer>
     </ResizablePanelGroup>
   )
 }
