@@ -1,4 +1,4 @@
-import { Blocks, Home, Presentation } from "lucide-react";
+import { Blocks, Home, MessageCircle, Presentation } from "lucide-react";
 import { List } from "./sidebar/list";
 import { NewButton } from "./sidebar/new-button";
 import { Hint } from "../hint";
@@ -15,6 +15,16 @@ export const Sidebar = () => {
                 {/* Empty space to push content to the bottom */}
             </div>
             <Separator/>
+            <div className="aspect-square">
+                <Hint label="Chat" side="right" align="start" sideOffset={18}>
+                <Link href={"/chat"}>
+                    <button className="bg-white/25 h-full w-full rounded-md flex items-center justify-center opacity-60 hover:opacity-100 transition">
+                        <MessageCircle className="text-white"/>
+                    </button>
+                </Link>
+                    
+                </Hint>
+            </div>
             <div className="aspect-square">
                 <Hint label="Flow" side="right" align="start" sideOffset={18}>
                 <Link href={"/flow"}>

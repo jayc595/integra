@@ -188,7 +188,6 @@ const EditorCanvas = (props: Props) => {
       Discord: EditorCanvasCardSingle,
       'Custom Webhook': EditorCanvasCardSingle,
       'Google Calendar': EditorCanvasCardSingle,
-      Wait: EditorCanvasCardSingle,
     }),
     []
   )
