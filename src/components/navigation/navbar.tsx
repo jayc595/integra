@@ -7,7 +7,8 @@ import { Book, Headphones } from "lucide-react";
 import { Hint } from "../hint";
 
 export const Navbar = () => {
-    const { organization } = useOrganization();
+    const organization = false;
+    //const { organization } = useOrganization();
 
     return (
         <div className="flex items-center gap-x-4 p-5">
@@ -15,7 +16,7 @@ export const Navbar = () => {
                 <SearchInput/>
             </div>
             <div className="block lg:hidden flex-1">
-            <OrganizationSwitcher 
+            {/* <OrganizationSwitcher 
                 hidePersonal
                 appearance={{
                     elements: {
@@ -36,7 +37,7 @@ export const Navbar = () => {
                         }
                     }
                 }}
-            />
+            /> */}
             </div>
             {organization && (<InviteButton/>)}
             <Hint label="Guide" side="bottom" align="center" sideOffset={2}>
@@ -45,7 +46,7 @@ export const Navbar = () => {
             <Hint label="Contact support" side="bottom" align="center" sideOffset={2}>
                 <Headphones/>
             </Hint> 
-            <UserButton />
+            {/* <UserButton /> */}
         </div>
     );
 };

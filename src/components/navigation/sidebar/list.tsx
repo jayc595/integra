@@ -4,6 +4,9 @@ import { useOrganizationList } from "@clerk/nextjs";
 import { Item } from "./item";
 
 export const List = () => {
+    //@TODO: Fix once resolved no longer using Clerk.
+    return null;
+
     const { userMemberships } = useOrganizationList({
         userMemberships: {
             infinite: true,

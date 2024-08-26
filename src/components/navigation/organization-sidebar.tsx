@@ -32,6 +32,9 @@ export const OrgSidebar = () => {
         sidebarButtons = <FlowOrganizationSidebarButtons />;
     }
 
+    //@TODO: We are no longer using Clerk - we need to add Organizations to Convex Auth.
+    return(<div></div>);
+
     return (
         <div className="hidden lg:flex flex-col space-y-6 w-[206px] pl-5 pt-5">
             <Link href="/">
