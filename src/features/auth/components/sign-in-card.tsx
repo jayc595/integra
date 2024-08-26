@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
-import React from 'react'
+import React, { useState } from 'react'
 import { SignInFlow } from '../types'
 
 interface SignInCardProps {
@@ -12,6 +12,9 @@ interface SignInCardProps {
 };
 
 const SignInCard = ({ setState } : SignInCardProps) => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
     return (
         <Card className='w-full h-full p-8'>
             <CardHeader className="px-0 pt-0">
@@ -24,8 +27,8 @@ const SignInCard = ({ setState } : SignInCardProps) => {
             </CardHeader>
             <CardContent className='space-y-5 px-0 pb-0'>
                 <form className='space-y-2.5'>
-                    <Input disabled={false} value="" onChange={() => { }} placeholder='Email' type="email" required />
-                    <Input disabled={false} value="" onChange={() => { }} placeholder='Password' type="password" required />
+                    <Input disabled={false} value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Email' type="email" required />
+                    <Input disabled={false} value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Password' type="password" required />
                     <Button type='submit' className='w-full' size="lg">Continue</Button>
                 </form>
                 <Separator />
