@@ -1,7 +1,7 @@
 export default {
     providers: [
       {
-        domain: "https://flying-whale-83.clerk.accounts.dev",
+        domain: process.env.CONVEX_SITE_URL,
         applicationID: "convex",
       },
     ]
