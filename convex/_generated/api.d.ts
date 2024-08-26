@@ -18,6 +18,7 @@ import type * as auth from "../auth.js";
 import type * as canvas from "../canvas.js";
 import type * as canvases from "../canvases.js";
 import type * as http from "../http.js";
+import type * as workspaces from "../workspaces.js";
 
 /**
  * A utility for referencing Convex functions in your app's API.
@@ -32,6 +33,7 @@ declare const fullApi: ApiFromModules<{
   canvas: typeof canvas;
   canvases: typeof canvases;
   http: typeof http;
+  workspaces: typeof workspaces;
 }>;
 export declare const api: FilterApi<
   typeof fullApi,

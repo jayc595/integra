@@ -5,6 +5,14 @@ import { authTables } from "@convex-dev/auth/server";
 export default defineSchema({
     ...authTables,
 
+    //Workspaces Table definition start
+    workspaces: defineTable({
+        name: v.string(),
+        userId: v.id("users"),
+        joinCode: v.string(),
+    }),
+    //Workspaces table definition end
+
     //Canvas Table Definition Start
     canvas: defineTable({
         title: v.string(),
