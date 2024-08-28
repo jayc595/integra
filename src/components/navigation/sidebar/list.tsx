@@ -1,28 +1,26 @@
 "use client";
 
-import { useOrganizationList } from "@clerk/nextjs";
 import { Item } from "./item";
+import { useGetWorkspaces } from "@/features/workspaces/api/use-get-workspaces";
 
 export const List = () => {
-    //@TODO: Fix once resolved no longer using Clerk.
-    return null;
+    const { data } = useGetWorkspaces();
 
-    const { userMemberships } = useOrganizationList({
-        userMemberships: {
-            infinite: true,
-        },
-    });
+    console.log(data);
+    // return null;
 
-    if(!userMemberships.data?.length) return null;
+    if(data === undefined) return null;
+
+    if(!data?.length) return null;
 
     return (
         <ul className="space-y-4">
-            {userMemberships.data?.map((mem) => (
+            {data?.map((mem) => (
                 <Item
-                    key={mem.organization.id}
-                    id={mem.organization.id}
-                    name={mem.organization.name}
-                    imageUrl={mem.organization.imageUrl}
+                    key={mem._id}
+                    id={mem._id}
+                    name={mem.name}
+                    imageUrl={""}
                 />
             ))}
         </ul>
