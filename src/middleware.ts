@@ -8,7 +8,7 @@ export default convexAuthNextjsMiddleware((request) => {
   } 
 
   if(isPublicPage(request) && isAuthenticatedNextjs()){
-    return nextjsMiddlewareRedirect(request, "/");
+    return nextjsMiddlewareRedirect(request, "/dashboard");
   }
 });
  

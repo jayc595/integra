@@ -1,14 +1,14 @@
 "use client";
 
-import { OrganizationSwitcher, UserButton, useOrganization } from "@clerk/nextjs";
 import { InviteButton } from "./invite-button";
 import { SearchInput } from "./search-input";
 import { Book, Headphones } from "lucide-react";
 import { Hint } from "../hint";
+import UserButton from "./user-button";
+import WorkspaceSwitcher from "./workspace-switcher";
 
 export const Navbar = () => {
-    const organization = false;
-    //const { organization } = useOrganization();
+    const organization = true;
 
     return (
         <div className="flex items-center gap-x-4 p-5">
@@ -16,28 +16,7 @@ export const Navbar = () => {
                 <SearchInput/>
             </div>
             <div className="block lg:hidden flex-1">
-            {/* <OrganizationSwitcher 
-                hidePersonal
-                appearance={{
-                    elements: {
-                        rootBox: {
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            width: "100%",
-                            maxWidth: "376px",
-                        },
-                        organizationSwitcherTrigger: {
-                            padding: "6px",
-                            width: "100%",
-                            borderRadius: "8px",
-                            border: "1px solid #E5E7EB",
-                            justifyContent: "space-between",
-                            backgroundColor: "white",
-                        }
-                    }
-                }}
-            /> */}
+            <WorkspaceSwitcher/>
             </div>
             {organization && (<InviteButton/>)}
             <Hint label="Guide" side="bottom" align="center" sideOffset={2}>
@@ -46,7 +25,7 @@ export const Navbar = () => {
             <Hint label="Contact support" side="bottom" align="center" sideOffset={2}>
                 <Headphones/>
             </Hint> 
-            {/* <UserButton /> */}
+            <UserButton />
         </div>
     );
 };
