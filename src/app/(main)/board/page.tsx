@@ -14,7 +14,8 @@ interface BoardPageProps {
 const BoardPage = ({
     searchParams,
 }: BoardPageProps) => {
-    const { organization } = true;
+    const organization = false;
+    // const { organization } = true;
 
     return (
         <div className="flex-1 h-[calc(100%-80px)] p-6">
