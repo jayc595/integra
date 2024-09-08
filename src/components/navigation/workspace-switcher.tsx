@@ -1,27 +1,27 @@
 import React from 'react'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '../ui/select'
 import { useGetWorkspaces } from '@/features/workspaces/api/use-get-workspaces';
-import { useWorkspace } from '@/features/workspaces/workspace-context';
+import { useRouter } from 'next/navigation';
+import { useWorkspaceId } from '@/app/hooks/use-workspace-id';
 
 type Props = {}
 
 const WorkspaceSwitcher = (props: Props) => {
+    const router = useRouter();
+    const worspaceId = useWorkspaceId();
     const { data } = useGetWorkspaces();
-    const { workspaceId, setWorkspaceId, setWorkspaceName } = useWorkspace();
 
     if (data === undefined || !data.length) return null;
 
     const handleWorkspaceChange = (value: string) => {
-        console.log("Workspace changed to:", value);
         const selectedWorkspace = data.find(workspace => workspace._id === value);
         if (selectedWorkspace) {
-            setWorkspaceId(selectedWorkspace._id);
-            setWorkspaceName(selectedWorkspace.name);
+            router.push(`/workspace/${selectedWorkspace._id}`);
         }
     };
 
     return (
-        <Select value={workspaceId} onValueChange={handleWorkspaceChange}>
+        <Select value={worspaceId} onValueChange={handleWorkspaceChange}>
             <SelectTrigger>
                 <SelectValue placeholder="Select a Workspace" />
             </SelectTrigger>

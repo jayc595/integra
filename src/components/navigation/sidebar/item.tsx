@@ -6,6 +6,8 @@ import { cn } from "@/lib/utils";
 import { Hint } from "@/components/hint";
 import { Plus } from "lucide-react";
 import { useWorkspace } from "@/features/workspaces/workspace-context";
+import { useWorkspaceId } from "@/app/hooks/use-workspace-id";
+import { useRouter } from "next/navigation";
 
 interface ItemProps {
     id: string;
@@ -18,14 +20,9 @@ export const Item = ({
     name,
     imageUrl,
 }: ItemProps) => {
-    const { workspaceId, setWorkspaceId, setWorkspaceName } = useWorkspace();
+    const router = useRouter();
+    const workspaceId = useWorkspaceId();
     const isActive = (workspaceId !== null && id === workspaceId);
-
-    // Optional: Use useEffect if you need to perform some action when workspaceId changes
-    useEffect(() => {
-        // Log or perform some action on workspaceId change
-        console.log("workspaceId has changed to:", workspaceId);
-    }, [workspaceId]);
 
     return (
         <div className="aspect-square relative">
@@ -36,9 +33,7 @@ export const Item = ({
                         alt={name}
                         src={imageUrl}
                         onClick={() => {
-                            // Example click handler
-                            setWorkspaceId(id);
-                            setWorkspaceName(name);
+                            router.push(`/workspace/${id}`);
                         }}
                         className={cn(
                             "rounded-md cursor-pointer opacity-75 hover:opacity-100 transition",
@@ -52,9 +47,7 @@ export const Item = ({
                             isActive && "opacity-100"
                         )}
                         onClick={() => {
-                            // Example click handler
-                            setWorkspaceId(id);
-                            setWorkspaceName(name);
+                            router.push(`/workspace/${id}`);
                         }}
                     >
                         {name[0]}
