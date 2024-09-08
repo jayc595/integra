@@ -5,13 +5,13 @@ import { useMutation } from "convex/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { useWorkspace } from "@/features/workspaces/workspace-context";
 import { useApiMutation } from "../../../../../../../../hooks/use-api-mutation";
 import { api } from "../../../../../../../../convex/_generated/api";
+import { useWorkspaceId } from "@/app/hooks/use-workspace-id";
 
 
 export const EmptyCanvas = () => {
-    const { workspaceId} = useWorkspace();
+    const workspaceId = useWorkspaceId();
     const { mutate, pending } = useApiMutation(api.canvas.create);
     const router = useRouter();
 
@@ -24,7 +24,7 @@ export const EmptyCanvas = () => {
         })
         .then((id) => {
             toast.success("Canvas successfully created");
-            router.push(`/canvas/${id}`);
+            router.push(`canvas/${id}`);
         })
         .catch(() => {
             console.log("Workspace id is: ", workspaceId);

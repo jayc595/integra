@@ -13,6 +13,17 @@ export default defineSchema({
     }),
     //Workspaces table definition end
 
+    //Members Table definition start
+    members: defineTable({
+        userId: v.id("users"),
+        workspaceId: v.id("workspaces"),
+        role: v.union(v.literal("admin"), v.literal("user"), v.literal("guest"), v.literal("superadmin"))
+    })
+        .index("by_user_id", ["userId"])
+        .index("by_workspace_id", ["workspaceId"])
+        .index("by_workspace_id_user_id", ["workspaceId", "userId"]),
+    //Members table definition end
+
     //Canvas Table Definition Start
     canvas: defineTable({
         title: v.string(),

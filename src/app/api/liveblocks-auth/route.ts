@@ -2,6 +2,9 @@
 import { Liveblocks } from "@liveblocks/node";
 import { ConvexHttpClient } from "convex/browser";
 import { api } from "../../../../convex/_generated/api";
+import { useWorkspaceId } from "@/app/hooks/use-workspace-id";
+import { useCurrentMember } from "@/features/workspaces/members/api/use-current-member";
+import { useGetWorkspace } from "@/features/workspaces/api/use-get-workspace";
 
 const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
 
@@ -10,10 +13,11 @@ const liveblocks = new Liveblocks({
 });
 
 export async function POST(request: Request){
-    const authorization = await auth();
-    const user = await currentUser();
+    const workspaceId = useWorkspaceId();
+    const {data: member, isLoading: memberLoading} = useCurrentMember({workspaceId});
+    const {data: workspace, isLoading: workspaceLoading} = useGetWorkspace({id: workspaceId});
 
-    if(!authorization || !user){
+    if(!member || !workspace){
         return new Response("Unauthorized", { status: 403 });
     }
 
@@ -21,16 +25,16 @@ export async function POST(request: Request){
 
     const canvas = await convex.query(api.canvas.get, { id: room });
 
-    if(canvas?.orgId !== authorization.orgId){
+    if(canvas?.orgId !== workspaceId){
         return new Response("Unauthorized", { status: 403 });
     }
 
     const userInfo = {
-        name: user.firstName || "Anonymous",
-        picture: user.imageUrl,
+        name: member.userId || "Anonymous",
+        // picture: user.imageUrl,
     };
 
-    const session = liveblocks.prepareSession(user.id, { userInfo });
+    const session = liveblocks.prepareSession(member.userId, { userInfo });
 
     if(room){
         session.allow(room, session.FULL_ACCESS);
