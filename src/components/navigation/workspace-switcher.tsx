@@ -8,7 +8,7 @@ type Props = {}
 
 const WorkspaceSwitcher = (props: Props) => {
     const router = useRouter();
-    const worspaceId = useWorkspaceId();
+    const workspaceId = useWorkspaceId();
     const { data } = useGetWorkspaces();
 
     if (data === undefined || !data.length) return null;
@@ -21,7 +21,7 @@ const WorkspaceSwitcher = (props: Props) => {
     };
 
     return (
-        <Select value={worspaceId} onValueChange={handleWorkspaceChange}>
+        <Select value={workspaceId} onValueChange={handleWorkspaceChange}>
             <SelectTrigger>
                 <SelectValue placeholder="Select a Workspace" />
             </SelectTrigger>

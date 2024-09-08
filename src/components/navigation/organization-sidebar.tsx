@@ -1,13 +1,14 @@
 "use client";
 
-import BoardOrganizationSidebarButtons from "@/app/(main)/board/_components/organization-sidebar-buttons";
-import FlowOrganizationSidebarButtons from "@/app/(main)/flow/_components/flow-organization-sidebar";
 import { cn } from "@/lib/utils";
 import { Poppins } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams, usePathname } from "next/navigation";
 import WorkspaceSwitcher from "./workspace-switcher";
+import ChatOrganizationSidebarButtons from "@/app/(main)/workspace/[workspaceId]/app/chat/_components/chat-organization-sidebar-buttons";
+import BoardOrganizationSidebarButtons from "@/app/(main)/workspace/[workspaceId]/app/board/_components/organization-sidebar-buttons";
+import FlowOrganizationSidebarButtons from "@/app/(main)/workspace/[workspaceId]/app/flow/_components/flow-organization-sidebar";
 
 const font = Poppins({
     subsets: ["latin"],
@@ -24,11 +25,33 @@ export const OrgSidebar = () => {
 
     let sidebarButtons = null;
 
-    if (pathname.includes('/board')) {
-        sidebarButtons = <BoardOrganizationSidebarButtons favourites={favourites}/>;
-    } else if (pathname.includes('/flow')) {
-        sidebarButtons = <FlowOrganizationSidebarButtons />;
+    const pathSegments = pathname.split("/");
+    const appName = pathSegments[pathSegments.indexOf("app") + 1]; // Extracts the application name
+
+
+    switch(appName){
+        case 'board':
+            sidebarButtons = <BoardOrganizationSidebarButtons favourites={favourites}/>;
+            break;
+        case 'flow':
+            sidebarButtons = <FlowOrganizationSidebarButtons />;
+            break;
+        case 'chat': 
+            sidebarButtons = <ChatOrganizationSidebarButtons />;
+            break;
+        default:
+            //TODO: Add default sidebar buttons, this should be application list.
+            sidebarButtons = '';
+            break;            
     }
+
+    // if (pathname.includes('app/board')) {
+    //     sidebarButtons = <BoardOrganizationSidebarButtons favourites={favourites}/>;
+    // } else if (pathname.includes('app/flow')) {
+    //     sidebarButtons = <FlowOrganizationSidebarButtons />;
+    // } else if(pathname.includes('app/chat')) {
+
+    // }
 
     return (
         <div className="hidden lg:flex flex-col space-y-6 w-[206px] pl-5 pt-5">

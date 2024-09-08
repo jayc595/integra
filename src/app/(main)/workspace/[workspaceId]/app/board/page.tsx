@@ -1,8 +1,8 @@
 "use client";
 
 import { useWorkspace } from "@/features/workspaces/workspace-context";
-import { EmptyOrg } from "../../../components/empty-org";
 import { CanvasList } from "./_components/canvas-list";
+import { EmptyOrg } from "@/components/empty-org";
 
 interface BoardPageProps {
     searchParams: {

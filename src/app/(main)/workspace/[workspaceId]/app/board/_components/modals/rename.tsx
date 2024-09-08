@@ -15,9 +15,9 @@ import { useState, useEffect, FormEventHandler } from "react";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useApiMutation } from "../../../../../../hooks/use-api-mutation";
-import { api } from "../../../../../../convex/_generated/api";
-import { useRenameModal } from "../../../../(main)/board/_components/modals/use-rename-modal";
+import { useApiMutation } from "../../../../../../../../../hooks/use-api-mutation";
+import { api } from "../../../../../../../../../convex/_generated/api";
+import { useRenameModal } from "./use-rename-modal";
 
 
 export const RenameModal = () => {

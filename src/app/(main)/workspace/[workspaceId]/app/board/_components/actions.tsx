@@ -18,8 +18,8 @@ import { ConfirmModal } from "./confirm-modal";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { useRenameModal } from "./modals/use-rename-modal";
-import { useApiMutation } from "../../../../../hooks/use-api-mutation";
-import { api } from "../../../../../convex/_generated/api";
+import { useApiMutation } from "../../../../../../../../hooks/use-api-mutation";
+import { api } from "../../../../../../../../convex/_generated/api";
 
 
 

@@ -6,9 +6,10 @@ import { Book, Headphones } from "lucide-react";
 import { Hint } from "../hint";
 import UserButton from "./user-button";
 import WorkspaceSwitcher from "./workspace-switcher";
+import { useWorkspaceId } from "@/app/hooks/use-workspace-id";
 
 export const Navbar = () => {
-    const organization = true;
+    const workspaceId = useWorkspaceId();
 
     return (
         <div className="flex items-center gap-x-4 p-5">
@@ -18,7 +19,7 @@ export const Navbar = () => {
             <div className="block lg:hidden flex-1">
             <WorkspaceSwitcher/>
             </div>
-            {organization && (<InviteButton/>)}
+            {workspaceId && (<InviteButton/>)}
             <Hint label="Guide" side="bottom" align="center" sideOffset={2}>
                 <Book/>
             </Hint>

@@ -5,9 +5,9 @@ import { useMutation } from "convex/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { useApiMutation } from "../../../../../hooks/use-api-mutation";
-import { api } from "../../../../../convex/_generated/api";
 import { useWorkspace } from "@/features/workspaces/workspace-context";
+import { useApiMutation } from "../../../../../../../../hooks/use-api-mutation";
+import { api } from "../../../../../../../../convex/_generated/api";
 
 
 export const EmptyCanvas = () => {

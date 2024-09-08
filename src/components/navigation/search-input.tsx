@@ -37,7 +37,8 @@ export const SearchInput = () => {
     return (
         <div className="w-full relative">
             <Search className="absolute top-1/2 left-3 transform -translate-y-1/2 text-muted-forground h-4 w-4"/>
-            <Input className="w-full max-w-[516px] pl-9" placeholder="Search Canvas" onChange={handleChange} value={value}></Input>
+            {/* @TODO: How to handle searching the workspace, and searching based on certain apps. */}
+            <Input className="w-full max-w-[516px] pl-9" placeholder="Search Workspace" onChange={handleChange} value={value}></Input>
         </div>
     );
 };
