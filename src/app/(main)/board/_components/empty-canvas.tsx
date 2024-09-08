@@ -1,27 +1,25 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useOrganization } from "@clerk/nextjs";
 import { useMutation } from "convex/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useApiMutation } from "../../../../../hooks/use-api-mutation";
 import { api } from "../../../../../convex/_generated/api";
+import { useWorkspace } from "@/features/workspaces/workspace-context";
 
 
 export const EmptyCanvas = () => {
-    const { organization } = useOrganization();
+    const { workspaceId} = useWorkspace();
     const { mutate, pending } = useApiMutation(api.canvas.create);
     const router = useRouter();
 
     const onClick = () => {
-        if (!organization) return;
-
-        
+        if (!workspaceId) return;
 
         mutate({
-            orgId: organization.id,
+            orgId: workspaceId,
             title: "Untitled"
         })
         .then((id) => {
@@ -29,6 +27,7 @@ export const EmptyCanvas = () => {
             router.push(`/canvas/${id}`);
         })
         .catch(() => {
+            console.log("Workspace id is: ", workspaceId);
             toast.error("We were unable to create your canvas.");
         })
     }

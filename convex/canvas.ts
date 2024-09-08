@@ -1,5 +1,6 @@
 import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
+import { auth } from "./auth";
 
 const images = [
     "/placeholders/1.svg",
@@ -21,9 +22,9 @@ export const create = mutation({
 
     },
     handler: async (ctx, args) => {
-        const identity = await ctx.auth.getUserIdentity();
+        const userId = await auth.getUserId(ctx);
 
-        if(!identity){
+        if(!userId){
             throw new Error("Unauthorized");
         }
 
@@ -32,8 +33,8 @@ export const create = mutation({
         const canvas = await ctx.db.insert("canvas", {
             title: args.title,
             orgId: args.orgId,
-            authorId: identity.subject,
-            authorName: identity.name!,
+            authorId: userId,
+            authorName: "Test",
             imageUrl: randomImage
         });
         

@@ -6,9 +6,6 @@ import { useGetWorkspaces } from "@/features/workspaces/api/use-get-workspaces";
 export const List = () => {
     const { data } = useGetWorkspaces();
 
-    console.log(data);
-    // return null;
-
     if(data === undefined) return null;
 
     if(!data?.length) return null;

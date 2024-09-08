@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Overlay } from "./overlay";
 import { formatDistanceToNow } from "date-fns";
-import { useAuth } from "@clerk/nextjs";
+// import { useAuth } from "@clerk/nextjs";
 import { Footer } from "./footer";
 import { Skeleton } from "@/components/ui/skeleton";
 import { MoreHorizontal } from "lucide-react";
@@ -38,7 +38,8 @@ export const CanvasCard = ({
     orgId,
     isFavourite,
 } : CanvasCardProps) => {
-    const { userId } = useAuth();
+    // const userId = await auth.getUserId(ctx);
+    const userId = "1234";
 
     const authorLabel = userId === authorId ? "You" : authorName;
     const createdAtLabel = formatDistanceToNow(createdAt, {

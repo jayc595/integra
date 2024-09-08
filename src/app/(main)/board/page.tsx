@@ -1,6 +1,6 @@
 "use client";
 
-import { useOrganization } from "@clerk/nextjs";
+import { useWorkspace } from "@/features/workspaces/workspace-context";
 import { EmptyOrg } from "../../../components/empty-org";
 import { CanvasList } from "./_components/canvas-list";
 
@@ -14,16 +14,15 @@ interface BoardPageProps {
 const BoardPage = ({
     searchParams,
 }: BoardPageProps) => {
-    const organization = false;
-    // const { organization } = true;
+    const { workspaceId} = useWorkspace();
 
     return (
         <div className="flex-1 h-[calc(100%-80px)] p-6">
-            {!organization ? (
+            {!workspaceId ? (
                 <EmptyOrg name="Integra Board"/> )
                 : (
                     <CanvasList
-                        orgId={organization.id}
+                        orgId={workspaceId}
                         query={searchParams}
                     />
                     
