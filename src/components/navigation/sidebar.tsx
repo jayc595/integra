@@ -7,9 +7,16 @@ import { Hint } from "../hint";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import { useWorkspaceId } from "@/app/hooks/use-workspace-id";
+import { useRouter } from "next/navigation";
 
 export const Sidebar = () => {
     const workspaceId = useWorkspaceId();
+    const router = useRouter();
+
+
+    const handleOnClick = (appName: string) => {
+        router.push(`/workspace/${workspaceId}/app/${appName}`);
+    }
 
     return (
         <aside className="fixed z-[1] left-0 bg-blue-950 h-full w-[60px] flex flex-col p-3 gap-y-4 text-white">
@@ -25,29 +32,23 @@ export const Sidebar = () => {
                     <Separator />
                     <div className="aspect-square">
                         <Hint label="Chat" side="right" align="start" sideOffset={18}>
-                            <Link href={"/chat"}>
-                                <button className="bg-white/25 h-full w-full rounded-md flex items-center justify-center opacity-60 hover:opacity-100 transition">
-                                    <MessageCircle className="text-white" />
-                                </button>
-                            </Link>
+                            <button onClick={() => handleOnClick('chat')} className="bg-white/25 h-full w-full rounded-md flex items-center justify-center opacity-60 hover:opacity-100 transition">
+                                <MessageCircle className="text-white" />
+                            </button>
                         </Hint>
                     </div>
                     <div className="aspect-square">
                         <Hint label="Flow" side="right" align="start" sideOffset={18}>
-                            <Link href={"/flow"}>
-                                <button className="bg-white/25 h-full w-full rounded-md flex items-center justify-center opacity-60 hover:opacity-100 transition">
-                                    <Blocks className="text-white" />
-                                </button>
-                            </Link>
+                            <button onClick={() => handleOnClick('flow')} className="bg-white/25 h-full w-full rounded-md flex items-center justify-center opacity-60 hover:opacity-100 transition">
+                                <Blocks className="text-white" />
+                            </button>
                         </Hint>
                     </div>
                     <div className="aspect-square">
                         <Hint label="Board" side="right" align="start" sideOffset={18}>
-                            <Link href={"/board"}>
-                                <button className="bg-white/25 h-full w-full rounded-md flex items-center justify-center opacity-60 hover:opacity-100 transition">
-                                    <Presentation className="text-white" />
-                                </button>
-                            </Link>
+                            <button onClick={() => handleOnClick('board')} className="bg-white/25 h-full w-full rounded-md flex items-center justify-center opacity-60 hover:opacity-100 transition">
+                                <Presentation className="text-white" />
+                            </button>
                         </Hint>
                     </div>
                     <div className="aspect-square">
