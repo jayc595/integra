@@ -1,7 +1,7 @@
 import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
-import { StickyNoteLayer } from "../../../../../types/canvas";
+import { StickyNoteLayer } from "../../../../../../../../../../types/canvas";
 import { cn, colourToCss, getContrastingTextColour } from "@/lib/utils";
-import { useMutation } from "../../../../../liveblocks.config";
+import { useMutation } from "../../../../../../../../../../liveblocks.config";
 
 const calculateFontSize = (width: number, height: number) => {
     const maxFontSize = 96;

@@ -9,17 +9,16 @@ import { colourToCss, connectionIdToColourMaping, findIntersectingLayersWithRect
 import { nanoid } from "nanoid";
 import { LiveObject } from "@liveblocks/client";
 import { LayerPreview } from "./layer-preview";
-import { useHistory, useCanRedo, useCanUndo, useMutation, useStorage, useOthersMapped, useSelf } from "../../../../../liveblocks.config";
-import { CanvasState, CanvasMode, Camera, Colour, layerType, Point, Side, XYWH } from "../../../../../types/canvas";
-import { useApiMutation } from "../../../../../hooks/use-api-mutation";
+import { useHistory, useCanRedo, useCanUndo, useMutation, useStorage, useOthersMapped, useSelf } from "../../../../../../../../../../liveblocks.config";
 import { SelectionBox } from "./selection-box";
 import { SelectionToolbar } from "./selection-toolbar";
 import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuSeparator, ContextMenuTrigger } from "@/components/ui/context-menu";
 import { BringToFront, ClipboardPaste, Copy, SendToBack, Trash2 } from "lucide-react";
-import { useDeleteLayer } from "../../../../../hooks/use-delete-layer";
-import { useSendToBack } from "../../../../../hooks/use-send-to-back";
-import { useBringToFront } from "../../../../../hooks/use-bring-to-front";
 import { Path } from "./path";
+import { useDeleteLayer } from "../../../../../../../../../../hooks/use-delete-layer";
+import { useSendToBack } from "../../../../../../../../../../hooks/use-send-to-back";
+import { useBringToFront } from "../../../../../../../../../../hooks/use-bring-to-front";
+import { Camera, CanvasMode, Colour, layerType, Point, Side, XYWH } from "../../../../../../../../../../types/canvas";
 
 const MAX_LAYERS = 100;
 

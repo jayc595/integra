@@ -2,8 +2,8 @@
 
 import { memo } from "react";
 import { Rectangle } from "./rectangle";
-import { layerType } from "../../../../../types/canvas";
-import { useStorage } from "../../../../../liveblocks.config";
+import { layerType } from "../../../../../../../../../../types/canvas";
+import { useStorage } from "../../../../../../../../../../liveblocks.config";
 import { Ellipse } from "./ellipse";
 import { Triangle } from "./triangle";
 import { Text } from "./text";

@@ -3,6 +3,7 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrig
 import { useGetWorkspaces } from '@/features/workspaces/api/use-get-workspaces';
 import { useRouter } from 'next/navigation';
 import { useWorkspaceId } from '@/app/hooks/use-workspace-id';
+import { useApplicationName } from '@/app/hooks/use-application-name';
 
 type Props = {}
 
@@ -10,13 +11,20 @@ const WorkspaceSwitcher = (props: Props) => {
     const router = useRouter();
     const workspaceId = useWorkspaceId();
     const { data } = useGetWorkspaces();
+    const applicationName = useApplicationName();
 
     if (data === undefined || !data.length) return null;
 
     const handleWorkspaceChange = (value: string) => {
         const selectedWorkspace = data.find(workspace => workspace._id === value);
+        //TODO: seperate into reuseable function.
         if (selectedWorkspace) {
-            router.push(`/workspace/${selectedWorkspace._id}`);
+            if(!applicationName){
+                router.push(`/workspace/${selectedWorkspace._id}`);
+                return;
+            }
+
+            router.push(`/workspace/${selectedWorkspace._id}/app/${applicationName}`);
         }
     };
 

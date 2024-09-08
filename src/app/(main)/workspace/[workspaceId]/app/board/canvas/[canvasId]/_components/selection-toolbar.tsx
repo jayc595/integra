@@ -2,16 +2,16 @@
 
 import { memo } from "react";
 import { Button } from "@/components/ui/button";
-import { Camera, Colour } from "../../../../../types/canvas";
-import { useMutation, useSelf } from "../../../../../liveblocks.config";
-import { useSelectionBounds } from "../../../../../hooks/use-selections-bounds";
+import { Camera, Colour } from "../../../../../../../../../../types/canvas";
+import { useMutation, useSelf } from "../../../../../../../../../../liveblocks.config";
+import { useSelectionBounds } from "../../../../../../../../../../hooks/use-selections-bounds";
 import { ColourPicker } from "./colour-picker";
-import { useDeleteLayer } from "../../../../../hooks/use-delete-layer";
+import { useDeleteLayer } from "../../../../../../../../../../hooks/use-delete-layer";
 import { Hint } from "@/components/hint";
 import { BringToFront, SendToBack, Trash2 } from "lucide-react";
-import { setFillColour } from "../../../../../hooks/use-fill-colour";
-import { useSendToBack } from "../../../../../hooks/use-send-to-back";
-import { useBringToFront } from "../../../../../hooks/use-bring-to-front";
+import { setFillColour } from "../../../../../../../../../../hooks/use-fill-colour";
+import { useSendToBack } from "../../../../../../../../../../hooks/use-send-to-back";
+import { useBringToFront } from "../../../../../../../../../../hooks/use-bring-to-front";
 
 interface SelectionToolbarProps {
     camera: Camera;

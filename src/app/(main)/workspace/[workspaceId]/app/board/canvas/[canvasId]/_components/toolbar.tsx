@@ -1,6 +1,6 @@
 import { Circle, Delete, MousePointer, MousePointer2, Pencil, Redo, Square, StickyNote, Trash2, Triangle, Type, Undo, SquareMenu } from "lucide-react"
 import { ToolButtons } from "./tool-buttons"
-import { CanvasMode, CanvasState, layerType } from "../../../../../types/canvas";
+import { CanvasMode, CanvasState, layerType } from "../../../../../../../../../../types/canvas";
 import { Separator } from "@/components/ui/separator";
 
 interface ToolbarProps {

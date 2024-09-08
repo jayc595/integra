@@ -8,10 +8,10 @@ import { Menu } from "lucide-react";
 import { Poppins } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
-import { Id } from "../../../../../convex/_generated/dataModel";
-import { api } from "../../../../../convex/_generated/api";
-import { Actions } from "@/app/(main)/board/_components/actions";
-import { useRenameModal } from "@/app/(main)/board/_components/modals/use-rename-modal";
+import { api } from "../../../../../../../../../../convex/_generated/api";
+import { Id } from "../../../../../../../../../../convex/_generated/dataModel";
+import { Actions } from "../../../_components/actions";
+import { useRenameModal } from "../../../_components/modals/use-rename-modal";
 
 interface InfoProps{
     canvasId: string;

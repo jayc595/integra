@@ -1,6 +1,6 @@
 "use client";
 
-import { useOthers, useSelf } from "../../../../../liveblocks.config";
+import { useOthers, useSelf } from "../../../../../../../../../../liveblocks.config";
 import { UserAvatar } from "./user-avatar";
 import { connectionIdToColourMaping } from "@/lib/utils";
 

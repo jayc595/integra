@@ -1,7 +1,10 @@
+"use client";
+
 import { Sidebar } from "@/components/navigation/sidebar";
 import { OrgSidebar } from "@/components/navigation/organization-sidebar";
 import { Navbar } from "@/components/navigation/navbar";
 import { WorkspaceProvider } from "@/features/workspaces/workspace-context";
+import { usePathname } from "next/navigation";
 
 
 
@@ -12,6 +15,13 @@ interface MainLayoutProps {
 const MainLayout = ({
     children, 
 }: MainLayoutProps) => {
+    const pathname = usePathname();
+
+  // Check if the current path is a canvas route and skip the main layout
+  if (pathname.includes('/canvas/')) {
+    return <>{children}</>;
+  }
+
     return (
         <WorkspaceProvider>
             <main className="h-full">

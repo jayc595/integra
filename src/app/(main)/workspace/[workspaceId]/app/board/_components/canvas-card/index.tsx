@@ -14,6 +14,8 @@ import { toast } from "sonner";
 import { Actions } from "../actions";
 import { useApiMutation } from "../../../../../../../../../hooks/use-api-mutation";
 import { api } from "../../../../../../../../../convex/_generated/api";
+import { useRouter } from "next/navigation";
+import { useWorkspaceId } from "@/app/hooks/use-workspace-id";
 
 
 
@@ -40,6 +42,7 @@ export const CanvasCard = ({
 } : CanvasCardProps) => {
     // const userId = await auth.getUserId(ctx);
     const userId = "1234";
+    const workspaceId = useWorkspaceId();
 
     const authorLabel = userId === authorId ? "You" : authorName;
     const createdAtLabel = formatDistanceToNow(createdAt, {
@@ -69,7 +72,7 @@ export const CanvasCard = ({
 
     return (
         <div>
-            <Link href={`/canvas/${id}`}>
+            <Link href={`board/canvas/${id}`}>
             <div className="group aspect-[100/127] border rounded-lg flex flex-col justify-between overflow-hidden">
                 <div className="relative flex-1 bg-amber-50">
                     <Image 

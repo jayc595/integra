@@ -3,7 +3,7 @@
 import { connectionIdToColourMaping } from "@/lib/utils";
 import { MousePointer2 } from "lucide-react";
 import { memo } from "react";
-import { useOther } from "../../../../../liveblocks.config";
+import { useOther } from "../../../../../../../../../../liveblocks.config";
 
 interface CursorProps {
     connectionId: number;

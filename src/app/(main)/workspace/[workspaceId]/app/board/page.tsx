@@ -1,8 +1,8 @@
 "use client";
 
-import { useWorkspace } from "@/features/workspaces/workspace-context";
 import { CanvasList } from "./_components/canvas-list";
 import { EmptyOrg } from "@/components/empty-org";
+import { useWorkspaceId } from "@/app/hooks/use-workspace-id";
 
 interface BoardPageProps {
     searchParams: {
@@ -14,7 +14,7 @@ interface BoardPageProps {
 const BoardPage = ({
     searchParams,
 }: BoardPageProps) => {
-    const { workspaceId} = useWorkspace();
+    const workspaceId = useWorkspaceId();
 
     return (
         <div className="flex-1 h-[calc(100%-80px)] p-6">
