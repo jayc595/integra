@@ -9,6 +9,7 @@ import WorkspaceSwitcher from "./workspace-switcher";
 import ChatOrganizationSidebarButtons from "@/app/(main)/workspace/[workspaceId]/app/chat/_components/chat-organization-sidebar-buttons";
 import BoardOrganizationSidebarButtons from "@/app/(main)/workspace/[workspaceId]/app/board/_components/organization-sidebar-buttons";
 import FlowOrganizationSidebarButtons from "@/app/(main)/workspace/[workspaceId]/app/flow/_components/flow-organization-sidebar";
+import { Separator } from "../ui/separator";
 
 const font = Poppins({
     subsets: ["latin"],
@@ -54,7 +55,7 @@ export const OrgSidebar = () => {
     // }
 
     return (
-        <div className="hidden lg:flex flex-col space-y-6 w-[206px] pl-5 pt-5">
+        <div className="hidden lg:flex flex-col w-[206px] pt-5 border-r border-gray">
             <Link href="/">
                 <div className="flex items-center gap-x-2">
                     <Image src="/logo.svg" alt="Logo" width={60} height={60}>
@@ -68,7 +69,11 @@ export const OrgSidebar = () => {
                     </span>
                 </div>
             </Link>
-            <WorkspaceSwitcher/>
+            <div className="mt-[10%]">
+                <WorkspaceSwitcher/>
+            </div>
+            
+            <Separator className="mt-[10px]"/>
             {sidebarButtons}
         </div>
     )

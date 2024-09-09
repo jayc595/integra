@@ -30,7 +30,7 @@ const WorkspaceSwitcher = (props: Props) => {
 
     return (
         <Select value={workspaceId} onValueChange={handleWorkspaceChange}>
-            <SelectTrigger>
+            <SelectTrigger className='focus:ring-0 focus:ring-offset-0 focus:border-input'>
                 <SelectValue placeholder="Select a Workspace" />
             </SelectTrigger>
             <SelectContent>

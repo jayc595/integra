@@ -5,6 +5,7 @@ import { OrgSidebar } from "@/components/navigation/organization-sidebar";
 import { Navbar } from "@/components/navigation/navbar";
 import { WorkspaceProvider } from "@/features/workspaces/workspace-context";
 import { usePathname } from "next/navigation";
+import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
 
 
 
@@ -32,7 +33,7 @@ const MainLayout = ({
                         <div className="h-full flex-1">
                             <Navbar />
                             {children}
-                        </div>
+                        </div>        
                     </div>
                 </div>
             </main>
