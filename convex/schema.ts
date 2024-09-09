@@ -24,6 +24,14 @@ export default defineSchema({
         .index("by_workspace_id_user_id", ["workspaceId", "userId"]),
     //Members table definition end
 
+    //Channels Table definition start
+    channels: defineTable({
+        name: v.string(),
+        workspaceId: v.id("workspaces")
+    })
+    .index("by_workspace_id", ["workspaceId"]),
+    //Channels Table definition end
+
     //Canvas Table Definition Start
     canvas: defineTable({
         title: v.string(),
