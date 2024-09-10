@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { Select } from '@/components/ui/select'
 import { Separator } from '@/components/ui/separator'
-import { BellRing, Hash, LayoutDashboard, ListFilter, MessageSquareText, SquarePen, Star } from 'lucide-react'
+import { BellRing, Hash, LayoutDashboard, ListFilter, MessageSquareText, SquarePen, Star, Users } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
 import StatusIndicator from './status-indicator'
@@ -10,12 +10,15 @@ import SidebarItem from './sidebar-item'
 import { useGetChannels } from '@/features/workspaces/channels/api/use-get-channels'
 import { useWorkspaceId } from '@/app/hooks/use-workspace-id'
 import { WorkspaceSection } from './workspace-section'
+import { useGetMembers } from '@/features/workspaces/members/api/use-get-members'
+import UserItem from './user-item'
 
 type Props = {}
 
 const ChatOrganizationSidebarButtons = (props: Props) => {
     const workspaceId = useWorkspaceId();
     const {data: channels, isLoading: channelIsLoading} = useGetChannels({workspaceId});
+    const {data: members, isLoading: membersIsLoading} = useGetMembers({workspaceId});
 
   return (
     <div className="flex flex-col h-full w-full">
@@ -46,8 +49,9 @@ const ChatOrganizationSidebarButtons = (props: Props) => {
             icon={BellRing}
             channelId="activity"
         />
+        </div>
         <WorkspaceSection
-            label="Channel"
+            label="Channels"
             hint="New channel"
             onNew={() => {}}
         >
@@ -57,8 +61,21 @@ const ChatOrganizationSidebarButtons = (props: Props) => {
                 channelId="channelone"
             />
         </WorkspaceSection>
-        
-      </div>
+
+        <WorkspaceSection
+            label="DM's"
+            hint="New message"
+            onNew={() => {}}
+        >
+            {members?.map((item) => (
+                <UserItem
+                    key={item._id}
+                    id={item._id}
+                    label={item.user.name}
+                    image={item.user.image}
+                />
+            ))}
+        </WorkspaceSection>
 
       {/* This ensures StatusIndicator is at the bottom */}
       <div className="mt-auto w-full">

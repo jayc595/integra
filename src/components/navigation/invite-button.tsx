@@ -12,26 +12,25 @@ import { Button } from "@/components/ui/button";
 import { DialogDescription } from "@radix-ui/react-dialog";
 import { useWorkspaceId } from "@/app/hooks/use-workspace-id";
 import { getWorkspaceById } from "../../../convex/workspaces";
+import { toast } from "sonner";
 
 interface InviteButtonModalProps {
-    open: boolean;
-    setOpen: (open: boolean) => void;
 }
 
 export const InviteButton = ({
-    open,
-    setOpen
 }: InviteButtonModalProps) => {
     const workspaceId = useWorkspaceId();
-    // const workspace = getWorkspaceById(workspaceId, 1);
+    //const workspace = getWorkspaceById({workspaceId});
 
     const handleCopyLink = () => {
         const inviteLink = `${window.location.origin}/join/${workspaceId}`
+        //TODO: Copy the invite link to clipboard.
+        toast.success("Invite Link copied to clipboard");
     }
 
 
     return (
-        <Dialog open={open} onOpenChange={setOpen}>
+        <Dialog>
             <DialogTrigger asChild>
                 <Button variant="outline">
                     <Plus className="h-4 w-4 mr-2"></Plus>
@@ -47,7 +46,7 @@ export const InviteButton = ({
                     <p className="text-4xl font-bold tracking-widest uppercase">
                         123456 
                     </p>
-                    <Button variant="ghost" size="sm">
+                    <Button variant="ghost" size="sm" onClick={() => handleCopyLink()}>
                         Copy Link
                         <CopyIcon className="size-4 ml-2"/>
                     </Button>
