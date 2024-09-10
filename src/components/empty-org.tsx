@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useCreateWorkspaceModal } from "@/features/workspaces/use-create-workspace-modal";
-import CreateWorkspace from "@/features/workspaces/components/create-workspace";
+import { CreateWorkspace } from "@/features/workspaces/components/create-workspace";
 
 type EmptyOrgProps = {
     name: string;

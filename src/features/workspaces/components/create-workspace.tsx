@@ -11,7 +11,7 @@ import { useRouter } from 'next/navigation';
 
 type Props = {}
 
-const CreateWorkspace = (props: Props) => {
+export const CreateWorkspace = (props: Props) => {
     const router = useRouter();
     const [open, setOpen] = useCreateWorkspaceModal();
     const [name, setName] = useState("");
@@ -53,5 +53,3 @@ const CreateWorkspace = (props: Props) => {
     </Dialog>
   )
 }
-
-export default CreateWorkspace

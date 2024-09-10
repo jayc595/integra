@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { ConvexClientProvider } from "../../providers/convex-client-provider";
 import { ModalProvider } from "../../providers/modal-provider";
 import { ConvexAuthNextjsServerProvider } from "@convex-dev/auth/nextjs/server";
+import { Modals } from "@/components/modals";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,6 +26,7 @@ export default function RootLayout({
           <ConvexClientProvider>
             <Toaster />
             <ModalProvider />
+            <Modals/>
             {children}
           </ConvexClientProvider>
         </body>

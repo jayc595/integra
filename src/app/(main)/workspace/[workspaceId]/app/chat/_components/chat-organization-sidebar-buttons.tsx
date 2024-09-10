@@ -12,11 +12,15 @@ import { useWorkspaceId } from '@/app/hooks/use-workspace-id'
 import { WorkspaceSection } from './workspace-section'
 import { useGetMembers } from '@/features/workspaces/members/api/use-get-members'
 import UserItem from './user-item'
+import { useCreateChannelModal } from '@/features/workspaces/channels/use-create-channel-modal'
 
 type Props = {}
 
 const ChatOrganizationSidebarButtons = (props: Props) => {
     const workspaceId = useWorkspaceId();
+
+    const [_open, setOpen] = useCreateChannelModal();
+
     const {data: channels, isLoading: channelIsLoading} = useGetChannels({workspaceId});
     const {data: members, isLoading: membersIsLoading} = useGetMembers({workspaceId});
 
@@ -53,13 +57,16 @@ const ChatOrganizationSidebarButtons = (props: Props) => {
         <WorkspaceSection
             label="Channels"
             hint="New channel"
-            onNew={() => {}}
+            onNew={() => setOpen(true)}
         >
-            <SidebarItem
-                label="Channel One"
+            {channels?.map((item) => (
+                <SidebarItem
+                key={item._id}
+                label={item.name}
                 icon={Hash}
-                channelId="channelone"
-            />
+                channelId={item.workspaceId}
+                />
+            ))}
         </WorkspaceSection>
 
         <WorkspaceSection

@@ -2,7 +2,7 @@
 
 import { Plus } from "lucide-react";
 import { Hint } from "@/components/hint";
-import CreateWorkspace from "@/features/workspaces/components/create-workspace";
+import { CreateWorkspace } from "@/features/workspaces/components/create-workspace";
 import { useCreateWorkspaceModal } from "@/features/workspaces/use-create-workspace-modal";
 
 export const NewButton = () => {
