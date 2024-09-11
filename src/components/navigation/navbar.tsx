@@ -24,7 +24,7 @@ export const Navbar = () => {
             <div className="block lg:hidden flex-1">
             <WorkspaceSwitcher/>
             </div>
-            {workspaceId && (<InviteButton />)}
+            {workspaceId && (<InviteButton role={member?.role} />)}
             {workspaceId && member?.role === "admin" && (
                 <Hint label="Workspace settings" side="bottom" align="center" sideOffset={2}>
                     <Settings/>

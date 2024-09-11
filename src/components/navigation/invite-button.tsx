@@ -18,11 +18,14 @@ import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
 import { useNewJoinCode } from "@/features/workspaces/api/use-new-join-code";
+import { Hint } from "../hint";
 
 interface InviteButtonModalProps {
+    role?: string;
 }
 
 export const InviteButton = ({
+    role
 }: InviteButtonModalProps) => {
     const workspaceId = useWorkspaceId();
     const workspace = useQuery(api.workspaces.getWorkspaceById, {
@@ -72,10 +75,20 @@ export const InviteButton = ({
                     </Button>
                 </div>
                 <div className="flex items-center justify-between w-full">
-                    <Button onClick={handleNewCodeGeneration} variant="outline">
-                        <RefreshCcw className="size-4 mr-2"/>
-                        Generate code
-                    </Button>
+                    {role === 'admint' && (
+                        <Button disabled={isPending} onClick={handleNewCodeGeneration} variant="outline">
+                            <RefreshCcw className="size-4 mr-2"/>
+                            Generate code
+                        </Button>
+                    )}
+                    {role === 'admin' && (
+                        <Hint label="Contact your administrator to refresh">
+                            <Button disabled={true} onClick={handleNewCodeGeneration} variant="outline">
+                                <RefreshCcw className="size-4 mr-2"/>
+                                Generate code
+                            </Button>
+                        </Hint>
+                    )}
                     <DialogClose asChild>
                         <Button>Close</Button>
                     </DialogClose>
