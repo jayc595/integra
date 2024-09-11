@@ -11,7 +11,10 @@ import { useCurrentMember } from "@/features/workspaces/members/api/use-current-
 
 export const Navbar = () => {
     const workspaceId = useWorkspaceId();
-    const {data: member, isLoading: memberLoading} = useCurrentMember({workspaceId});
+    // Only call useCurrentMember if workspaceId exists
+    const { data: member, isLoading: memberLoading } = workspaceId 
+        ? useCurrentMember({ workspaceId }) 
+        : { data: null, isLoading: true };
     
     return (
         <div className="flex items-center gap-x-4 p-5">
