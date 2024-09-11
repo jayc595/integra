@@ -75,13 +75,13 @@ export const InviteButton = ({
                     </Button>
                 </div>
                 <div className="flex items-center justify-between w-full">
-                    {role === 'admint' && (
+                    {role === 'admin' && (
                         <Button disabled={isPending} onClick={handleNewCodeGeneration} variant="outline">
                             <RefreshCcw className="size-4 mr-2"/>
                             Generate code
                         </Button>
                     )}
-                    {role === 'admin' && (
+                    {role !== 'admin' && (
                         <Hint label="Contact your administrator to refresh">
                             <Button disabled={true} onClick={handleNewCodeGeneration} variant="outline">
                                 <RefreshCcw className="size-4 mr-2"/>
