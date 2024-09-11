@@ -1,4 +1,3 @@
-import { OrganizationProfile } from "@clerk/nextjs";
 import { CopyIcon, Plus, RefreshCcw } from "lucide-react";
 
 import {
@@ -12,7 +11,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { DialogDescription } from "@radix-ui/react-dialog";
 import { useWorkspaceId } from "@/app/hooks/use-workspace-id";
-import { getWorkspaceById } from "../../../convex/workspaces";
 import { toast } from "sonner";
 import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
@@ -36,8 +34,8 @@ export const InviteButton = ({
 
     const handleCopyLink = () => {
         const inviteLink = `${window.location.origin}/join/${workspaceId}`
-        //TODO: Copy the invite link to clipboard.
-        toast.success("Invite Link copied to clipboard");
+        navigator.clipboard.writeText(inviteLink)
+            .then(() => toast.success("Invite Link copied to clipboard"));
     }
 
     const handleNewCodeGeneration = () => {
@@ -75,18 +73,27 @@ export const InviteButton = ({
                     </Button>
                 </div>
                 <div className="flex items-center justify-between w-full">
-                    {role === 'admin' && (
+                    {role === 'admin' ? (
                         <Button disabled={isPending} onClick={handleNewCodeGeneration} variant="outline">
-                            <RefreshCcw className="size-4 mr-2"/>
-                            Generate code
+                            {isPending ? (
+                                <>
+                                    <RefreshCcw className="size-4 mr-2 animate-spin" /> Generating...
+                                </>
+                            ) : (
+                                <>
+                                    <RefreshCcw className="size-4 mr-2" /> Generate code
+                                </>
+                            )}
                         </Button>
-                    )}
-                    {role !== 'admin' && (
+                    ) : (
                         <Hint label="Contact your administrator to refresh">
-                            <Button disabled={true} onClick={handleNewCodeGeneration} variant="outline">
-                                <RefreshCcw className="size-4 mr-2"/>
-                                Generate code
-                            </Button>
+                            <span className="inline-block">
+                                <Button disabled={true} onClick={handleNewCodeGeneration} variant="outline">
+                                    <RefreshCcw className="size-4 mr-2"/>
+                                    Generate code
+                                </Button>
+                            </span>
+                            
                         </Hint>
                     )}
                     <DialogClose asChild>
