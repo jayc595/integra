@@ -58,9 +58,7 @@ export const OrgSidebar = () => {
         <div className="hidden lg:flex flex-col w-[206px] pt-5 border-r border-gray">
             <Link href="/">
                 <div className="flex items-center gap-x-2">
-                    <Image src="/logo.svg" alt="Logo" width={60} height={60}>
-
-                    </Image>
+                    <Image src="/logo.svg" alt="Logo" width={60} height={60}/>
                     <span className={cn(
                         "font-semibold text-1xl",
                         font.className
