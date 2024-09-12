@@ -6,6 +6,7 @@ import { useGetChannel } from '@/features/workspaces/channels/api/use-get-channe
 import { TriangleAlert } from 'lucide-react';
 import React from 'react'
 import Header from './_components/header';
+import ChatInput from './_components/chat-input';
 
 type Props = {}
 
@@ -29,8 +30,11 @@ const ChannelPage = (props: Props) => {
     }
 
   return (
-    <div className='flex flex-col h-full'>
+    // @TODO: fix the below styling.
+    <div className='flex flex-col h-[93%]'>
         <Header channelName={channel.name}/>
+        <div className='flex-1'/>
+        <ChatInput/>
     </div>
   )
 }
