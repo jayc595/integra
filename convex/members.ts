@@ -68,3 +68,24 @@ export const currentMember = query({
         return member;
     },
 });
+
+export const getById = query({
+    args: {
+        id: v.id("members")
+    },
+    handler: async (ctx,args) => {
+        const userId = await auth.getUserId(ctx);
+
+        if(!userId){
+            return null;
+        }
+
+        const member = await ctx.db.get(args.id);
+
+        if(!member){
+            return null;
+        }
+
+        return member;
+    }
+})
