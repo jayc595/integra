@@ -4,13 +4,14 @@ import { useGetWorkspaces } from '@/features/workspaces/api/use-get-workspaces';
 import { useRouter } from 'next/navigation';
 import { useWorkspaceId } from '@/app/hooks/use-workspace-id';
 import { useApplicationName } from '@/app/hooks/use-application-name';
+import { Loading } from '../auth/loading';
 
 type Props = {}
 
 const WorkspaceSwitcher = (props: Props) => {
     const router = useRouter();
     const workspaceId = useWorkspaceId();
-    const { data } = useGetWorkspaces();
+    const { data, isLoading } = useGetWorkspaces();
     const applicationName = useApplicationName();
 
     if (data === undefined || !data.length) return null;
@@ -27,6 +28,10 @@ const WorkspaceSwitcher = (props: Props) => {
             router.push(`/workspace/${selectedWorkspace._id}/app/${applicationName}`);
         }
     };
+
+    if(isLoading){
+        <Loading/>
+    }
 
     return (
         <Select value={workspaceId} onValueChange={handleWorkspaceChange}>

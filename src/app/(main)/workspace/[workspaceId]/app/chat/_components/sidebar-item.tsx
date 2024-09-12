@@ -9,17 +9,18 @@ interface SidebarItemProps {
     label: string;
     channelId: string;
     icon: LucideIcon | IconType;
+    active: boolean;
 }
 
 const SidebarItem = ({
     label,
     channelId,
     icon: Icon,
+    active
 }: SidebarItemProps) => {
     const workspaceId = useWorkspaceId();
-
   return (
-    <Button variant="ghost" size="sm" className="font-normal justify-start px-2 w-full pr-2 pl-5" asChild>
+    <Button variant={active ? 'outline' : 'ghost'} size="sm" className="font-normal justify-start px-2 w-full pr-2 pl-5" asChild>
         <Link href={`/workspace/${workspaceId}/app/chat/channel/${channelId}`}>
             <Icon className="h-4 w-4 mr-2"/>
             <span>{label}</span>

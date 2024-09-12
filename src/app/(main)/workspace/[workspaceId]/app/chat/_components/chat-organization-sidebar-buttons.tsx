@@ -13,11 +13,13 @@ import { WorkspaceSection } from './workspace-section'
 import { useGetMembers } from '@/features/workspaces/members/api/use-get-members'
 import UserItem from './user-item'
 import { useCreateChannelModal } from '@/features/workspaces/channels/use-create-channel-modal'
+import { useChannelId } from '@/app/hooks/use-channel-id'
 
 type Props = {}
 
 const ChatOrganizationSidebarButtons = (props: Props) => {
     const workspaceId = useWorkspaceId();
+    const channelId = useChannelId();
 
     const [_open, setOpen] = useCreateChannelModal();
 
@@ -47,11 +49,13 @@ const ChatOrganizationSidebarButtons = (props: Props) => {
             label="Threads"
             icon={MessageSquareText}
             channelId="threads"
+            active={false}
         />
         <SidebarItem
             label="Activity"
             icon={BellRing}
             channelId="activity"
+            active={false}
         />
         </div>
         <WorkspaceSection
@@ -64,7 +68,8 @@ const ChatOrganizationSidebarButtons = (props: Props) => {
                 key={item._id}
                 label={item.name}
                 icon={Hash}
-                channelId={item.workspaceId}
+                channelId={item._id}
+                active={channelId === item._id}
                 />
             ))}
         </WorkspaceSection>
