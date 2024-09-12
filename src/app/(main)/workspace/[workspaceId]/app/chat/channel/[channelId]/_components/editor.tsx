@@ -47,8 +47,8 @@ const Editor = () => {
                 <Button disabled={false} size="sm" variant="ghost" onClick={() => {}}>
                     <AtSign className='size-4'/>
                 </Button>
-                <Button>
-                    <MdSend/>
+                <Button disabled={false} size="sm" className='ml-auto bg-blue-600 hover:bg-blue-600/80 text-white' onClick={() => {}}>
+                    <MdSend className='size-4'/>
                 </Button>
             </div>
         </div>
