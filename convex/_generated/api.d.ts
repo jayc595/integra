@@ -18,6 +18,7 @@ import type * as auth from "../auth.js";
 import type * as canvas from "../canvas.js";
 import type * as canvases from "../canvases.js";
 import type * as channels from "../channels.js";
+import type * as getCurrentUser from "../getCurrentUser.js";
 import type * as http from "../http.js";
 import type * as members from "../members.js";
 import type * as workspaces from "../workspaces.js";
@@ -35,6 +36,7 @@ declare const fullApi: ApiFromModules<{
   canvas: typeof canvas;
   canvases: typeof canvases;
   channels: typeof channels;
+  getCurrentUser: typeof getCurrentUser;
   http: typeof http;
   members: typeof members;
   workspaces: typeof workspaces;

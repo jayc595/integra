@@ -12,6 +12,7 @@
     "@auth/core": "^0.34.2",
     "@clerk/nextjs": "^5.0.1",
     "@convex-dev/auth": "^0.0.61",
+    "@emoji-mart/data": "^1.2.1",
     "@liveblocks/client": "^1.11.3",
     "@liveblocks/node": "^1.11.3",
     "@liveblocks/react": "^1.11.3",

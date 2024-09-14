@@ -3,8 +3,8 @@
 import { LiveMap, LiveObject, LiveList } from "@liveblocks/client";
 import { ClientSideSuspense } from "@liveblocks/react";
 import { ReactNode } from "react";
-import { RoomProvider } from "../../liveblocks.config";
 import { Layer } from "../../types/canvas";
+import { RoomProvider } from "../../liveblocks.config";
 
 interface RoomProps {
     children: ReactNode
