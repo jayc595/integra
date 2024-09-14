@@ -14,6 +14,10 @@ import { useGetMembers } from '@/features/workspaces/members/api/use-get-members
 import UserItem from './user-item'
 import { useCreateChannelModal } from '@/features/workspaces/channels/use-create-channel-modal'
 import { useChannelId } from '@/app/hooks/use-channel-id'
+import { useGetMember } from '@/features/workspaces/members/api/use-get-member'
+import { useMemberId } from '@/app/hooks/use-member-id'
+import { useCurrentMember } from '@/features/workspaces/members/api/use-current-member'
+import { Loading } from '@/components/auth/loading'
 
 type Props = {}
 
@@ -25,6 +29,13 @@ const ChatOrganizationSidebarButtons = (props: Props) => {
 
     const {data: channels, isLoading: channelIsLoading} = useGetChannels({workspaceId});
     const {data: members, isLoading: membersIsLoading} = useGetMembers({workspaceId});
+    const {data: member, isLoading: memberLoading} = useCurrentMember({workspaceId});
+
+    if(memberLoading || !member){
+        return (
+            <Loading/>
+        )
+    }
 
   return (
     <div className="flex flex-col h-full w-full">
@@ -91,7 +102,7 @@ const ChatOrganizationSidebarButtons = (props: Props) => {
 
       {/* This ensures StatusIndicator is at the bottom */}
       <div className="mt-auto w-full">
-        <StatusIndicator/>
+        <StatusIndicator id={member._id} memberStatus={member.status} />
       </div>
     </div>
   )

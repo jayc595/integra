@@ -44,6 +44,7 @@ export const join = mutation({
             userId,
             workspaceId: workspace._id,
             role: "user",
+            status: "online",
         })
 
         return workspace._id;
@@ -103,7 +104,8 @@ export const create = mutation({
         await ctx.db.insert("members", {
             userId,
             workspaceId,
-            role: "admin"
+            role: "admin",
+            status: "online",
         });
 
         return workspaceId;

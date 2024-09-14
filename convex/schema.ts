@@ -17,7 +17,8 @@ export default defineSchema({
     members: defineTable({
         userId: v.id("users"),
         workspaceId: v.id("workspaces"),
-        role: v.union(v.literal("admin"), v.literal("user"), v.literal("guest"), v.literal("superadmin"))
+        role: v.union(v.literal("admin"), v.literal("user"), v.literal("guest"), v.literal("superadmin")),
+        status: v.union(v.literal("online"), v.literal("away"), v.literal("doNotDisturb"), v.literal("offline"))
     })
         .index("by_user_id", ["userId"])
         .index("by_workspace_id", ["workspaceId"])

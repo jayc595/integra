@@ -1,5 +1,5 @@
 import { v } from "convex/values";
-import { query, QueryCtx } from "./_generated/server";
+import { mutation, query, QueryCtx } from "./_generated/server";
 import { auth } from "./auth";
 import { Id } from "./_generated/dataModel";
 
@@ -87,5 +87,36 @@ export const getById = query({
         }
 
         return member;
+    }
+})
+
+export const updateStatus = mutation({
+    args: {
+        id: v.id("members"),
+        status: v.union(v.literal("online"), v.literal("away"), v.literal("doNotDisturb"), v.literal("offline"))
+    },
+    handler: async(ctx,args) => {
+        const userId = await auth.getUserId(ctx);
+
+        if(!args.status || args.status == undefined){
+            throw new Error("Unauthorized");
+        }
+
+        if(!userId){
+            throw new Error("Unauthorized");
+        }
+
+        const member = await ctx.db.get(args.id);
+
+        if(!member){
+            throw new Error("Unauthorized");
+        }
+
+        //TODO: Consider whether we should patch at a member id level or user id level. I.e should status change on any workplace for the user.
+        await ctx.db.patch(args.id, {
+            status: args.status,
+        });
+
+        return args.id;
     }
 })

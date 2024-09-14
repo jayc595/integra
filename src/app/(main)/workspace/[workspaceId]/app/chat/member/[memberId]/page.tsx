@@ -36,7 +36,7 @@ const MemberPage = (props: Props) => {
     <div className='flex flex-col h-[93%]'>
         <Header channelName={member.userId}/>
         <div className='flex-1'/>
-        <ChatInput/>
+        <ChatInput placeholder=''/>
     </div>
   )
 }

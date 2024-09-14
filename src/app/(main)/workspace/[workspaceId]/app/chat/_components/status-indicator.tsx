@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from "react"
 
 import {
@@ -8,33 +10,55 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { toast } from "sonner";
+import { Id } from "../../../../../../../../convex/_generated/dataModel";
+import { useUpdateStatus } from "@/features/workspaces/members/api/use-update-status";
 
 type Status = {
     color: string;
     label: string;
     description: string;
   };
+
+// Define Status type as the union of allowed values
+type StatusType = "online" | "away" | "doNotDisturb" | "offline";  
   
-  const statusConfig: Record<string, Status> = {
-    online: { color: "bg-green-500", label: "Online", description: "You're visible to everyone" },
-    away: { color: "bg-yellow-500", label: "Away", description: "You may be slow to respond" },
-    doNotDisturb: { color: "bg-red-500", label: "Do Not Disturb", description: "You won't receive any notifications" },
-    offline: { color: "bg-gray-500", label: "Offline", description: "You appear offline to others" },
+const statusConfig: Record<string, Status> = {
+  online: { color: "bg-green-500", label: "Online", description: "You're visible to everyone" },
+  away: { color: "bg-yellow-500", label: "Away", description: "You may be slow to respond" },
+  doNotDisturb: { color: "bg-red-500", label: "Do Not Disturb", description: "You won't receive any notifications" },
+  offline: { color: "bg-gray-500", label: "Offline", description: "You appear offline to others" },
   };
 
-export default function Component() {
-  const [status, setStatus] = React.useState("online");
+interface StatusIndicatorProps {
+  id: Id<"members">;
+  memberStatus: string;
+}
 
-  const handleStatusChange = (value: string) => {
-    setStatus(value);
-    //TODO: Update status in DB.
-    toast.success(`Status updated to: ${value}`)
+export default function StatusIndicator({
+  id,
+  memberStatus,
+} : StatusIndicatorProps) {
+  const [status, setStatus] = React.useState(memberStatus);
+  const { mutate, isPending } = useUpdateStatus();
+
+  const handleStatusChange = (value: StatusType) => {
+    mutate({id, status:value}, {
+      onSuccess: () => {
+        toast.success(`Status updated to: ${statusConfig[value].label}`);
+        setStatus(value);
+      },
+      onError: () => {
+        toast.error(`Unable to update status`);
+      }
+    }
+  )
+    
   }
 
   return (
       <div className="w-full">
         <Select onValueChange={handleStatusChange} value={status}>
-          <SelectTrigger className="w-full focus:ring-0 focus:ring-offset-0 focus:border-input">
+          <SelectTrigger disabled={isPending} className="w-full focus:ring-0 focus:ring-offset-0 focus:border-input">
             <div className="flex items-center">
                 <div
                 className={`w-2 h-2 rounded-full ${statusConfig[status].color} mr-2`}
