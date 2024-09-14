@@ -11,7 +11,7 @@ import { currentUser } from "../../../../convex/getCurrentUser";
 const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
 
 const liveblocks = new Liveblocks({
-    secret: "sk_dev_k4RrjBrH8sSt6LF5aw26C_xu2NRBgsRKVwslXJPjvxDIV85QXK-Tu_cmUS5KydzQ",
+    secret: process.env.LIVEBLOCKS_SECRET!,
 });
 
 export async function POST(request: Request){
