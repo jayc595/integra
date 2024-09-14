@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { PiTextAa } from 'react-icons/pi'
 import { AtSign, ImageIcon, Smile } from 'lucide-react';
 import { Delta, Op } from 'quill/core';
+import EmojiPopup from '../../../_components/emoji-popup';
 
 type EditorValue = {
     image: File | null;
@@ -131,6 +132,12 @@ const Editor = ({
         }
     }
 
+    const onEmojiSelect = (emoji: any) => {
+        const quill = quillRef.current;
+
+        quill?.insertText(quill?.getSelection()?.index || 0, emoji.native);
+    }
+
     const isEmpty = text.replace(/<(.|\n)*?>/g,"").trim().length === 0;
 
   return (
@@ -141,9 +148,11 @@ const Editor = ({
                 <Button disabled={false} size="sm" variant="ghost" onClick={toggleToolbar}>
                     <PiTextAa className='size-4'/>
                 </Button>
-                <Button disabled={false} size="sm" variant="ghost" onClick={() => {}}>
-                    <Smile className='size-4'/>
-                </Button>
+                <EmojiPopup onEmojiSelect={onEmojiSelect}>
+                    <Button disabled={false} size="sm" variant="ghost">
+                        <Smile className='size-4'/>
+                    </Button>
+                </EmojiPopup>
                 <Button disabled={false} size="sm" variant="ghost" onClick={() => {}}>
                     <ImageIcon className='size-4'/>
                 </Button>
