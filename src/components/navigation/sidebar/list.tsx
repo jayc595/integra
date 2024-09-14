@@ -1,10 +1,17 @@
 "use client";
 
+import { Loading } from "@/components/auth/loading";
 import { Item } from "./item";
 import { useGetWorkspaces } from "@/features/workspaces/api/use-get-workspaces";
 
 export const List = () => {
-    const { data } = useGetWorkspaces();
+    const { data, isLoading } = useGetWorkspaces();
+
+    if(isLoading){
+        //replace with skeleton loader.
+        return;
+    }
+
 
     if(data === undefined) return null;
 

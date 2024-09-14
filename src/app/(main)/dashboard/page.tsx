@@ -1,5 +1,6 @@
 "use client";
 
+import { Loading } from "@/components/auth/loading";
 import { EmptyOrg } from "@/components/empty-org";
 import WorkspaceCard from "@/components/workspace-card";
 import { useGetWorkspaces } from "@/features/workspaces/api/use-get-workspaces";
@@ -16,11 +17,16 @@ interface DashboardPageProps {
 const DashboardPage = ({
     searchParams,
 }: DashboardPageProps) => {
-    const { data } = useGetWorkspaces();
+    const { data, isLoading } = useGetWorkspaces();
     const { workspaceId, setWorkspaceId, setWorkspaceName } = useWorkspace();
 
     const organization = false;
     // const { organization } = useOrganization();
+
+    if(isLoading){
+        //replace with skeleton loader.
+        return <Loading/>
+    }
 
     //User hasn't created a workspace yet.
     if(data === undefined || !data?.length) return (
