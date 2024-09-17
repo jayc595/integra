@@ -30,7 +30,7 @@ interface EditorProps {
 const Editor = ({
     onCancel,
     onSubmit,
-    placeholder = "Write somrthing...",
+    placeholder = "Write something...",
     defaultValue = [],
     disabled = false,
     innerRef,
@@ -83,8 +83,17 @@ const Editor = ({
                         enter: {
                             key: "Enter",
                             handler: () => {
-                                //TODO: Submit form.
-                                return;
+                                const text = quill.getText();
+                                const addedImage = imageElementRef.current?.files?.[0] || null;
+                                const isEmpty = !addedImage && text.replace(/<(.|\n)*?>/g, "").trim().length === 0;
+
+                                if(isEmpty){
+                                    return;
+                                }
+
+                                const messageBody = JSON.stringify(quill.getContents());
+                                submitRef.current?.({ body: messageBody, image: addedImage });
+                                return 
                             }
                         },
                         shift_enter: {
@@ -195,7 +204,10 @@ const Editor = ({
                             <AtSign className='size-4' />
                         </Button>
                     </MentionPopup>
-                    <Button disabled={disabled || isEmpty} size="sm" className='ml-auto bg-blue-600 hover:bg-blue-600/80 text-white' onClick={() => { }}>
+                    <Button disabled={disabled || isEmpty} size="sm" className='ml-auto bg-blue-600 hover:bg-blue-600/80 text-white' onClick={() => onSubmit({
+                        body: JSON.stringify(quillRef.current?.getContents()),
+                        image
+                    })}>
                         <MdSend className='size-4' />
                     </Button>
                 </div>
