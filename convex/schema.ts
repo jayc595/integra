@@ -33,6 +33,19 @@ export default defineSchema({
     .index("by_workspace_id", ["workspaceId"]),
     //Channels Table definition end
 
+    //Messages Table definition start
+    messages: defineTable({
+        body: v.string(),
+        image: v.optional(v.id("_storage")),
+        memberId: v.id("members"),
+        workspaceId: v.id("workspaces"),
+        channelId: v.optional(v.id("channels")),
+        parentMessageId: v.optional(v.id("messages")),
+        updatedAt: v.number()
+        //TODO: Add conversation ID later.
+    }),
+    //Messages Table definition end
+
     //Canvas Table Definition Start
     canvas: defineTable({
         title: v.string(),
