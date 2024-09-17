@@ -87,13 +87,13 @@ const Editor = ({
                                 const addedImage = imageElementRef.current?.files?.[0] || null;
                                 const isEmpty = !addedImage && text.replace(/<(.|\n)*?>/g, "").trim().length === 0;
 
-                                if(isEmpty){
+                                if (isEmpty) {
                                     return;
                                 }
 
                                 const messageBody = JSON.stringify(quill.getContents());
                                 submitRef.current?.({ body: messageBody, image: addedImage });
-                                return 
+                                return
                             }
                         },
                         shift_enter: {
@@ -172,14 +172,14 @@ const Editor = ({
 
     return (
         <div className='flex flex-col'>
-            <input type='file' accept="image/*" ref={imageElementRef} onChange={(event) => setImage(event.target.files![0])} className='hidden'/>
+            <input type='file' accept="image/*" ref={imageElementRef} onChange={(event) => setImage(event.target.files![0])} className='hidden' />
             <div className='flex flex-col border border-slate-200 rounded-md overflow-hidden focus-within:borer-slate-300 focus-within:shadow-sm transition bg:white'>
                 <div className='h-full ql-custom' ref={containerRef} />
                 {!!image && (
                     <div className='p-2'>
                         <div className='relative size-[62px] flex items-center justify-center group/image'>
                             <Hint label='Remove image'>
-                                <button onClick={() => {setImage(null); imageElementRef.current!.value=""}} className='hidden group-hover/image:flex rounded-full bg-black/70 hover:bg-black absolute -top-2.5 -right-2.5 text-white size-6 z-[4] border-2 border-white items-center justify-center'>
+                                <button onClick={() => { setImage(null); imageElementRef.current!.value = "" }} className='hidden group-hover/image:flex rounded-full bg-black/70 hover:bg-black absolute -top-2.5 -right-2.5 text-white size-6 z-[4] border-2 border-white items-center justify-center'>
                                     <XIcon className='size-3.5'></XIcon>
                                 </button>
                             </Hint>
@@ -204,10 +204,14 @@ const Editor = ({
                             <AtSign className='size-4' />
                         </Button>
                     </MentionPopup>
-                    <Button disabled={disabled || isEmpty} size="sm" className='ml-auto bg-blue-600 hover:bg-blue-600/80 text-white' onClick={() => onSubmit({
-                        body: JSON.stringify(quillRef.current?.getContents()),
-                        image
-                    })}>
+                    <Button disabled={disabled || isEmpty} size="sm" className='ml-auto bg-blue-600 hover:bg-blue-600/80 text-white' onClick={() => {
+                        if (submitRef.current) {
+                            submitRef.current({
+                                body: JSON.stringify(quillRef.current?.getContents()),
+                                image
+                            });
+                        }
+                    }}>
                         <MdSend className='size-4' />
                     </Button>
                 </div>
