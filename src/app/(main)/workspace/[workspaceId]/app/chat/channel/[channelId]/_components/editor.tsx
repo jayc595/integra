@@ -4,10 +4,12 @@ import { MdSend } from 'react-icons/md'
 import "quill/dist/quill.snow.css";
 import { Button } from '@/components/ui/button';
 import { PiTextAa } from 'react-icons/pi'
-import { AtSign, ImageIcon, Smile } from 'lucide-react';
+import { AtSign, ImageIcon, Smile, XIcon } from 'lucide-react';
 import { Delta, Op } from 'quill/core';
 import EmojiPopup from '../../../_components/emoji-popup';
 import MentionPopup from '../../../_components/mention-popup';
+import Image from 'next/image';
+import { Hint } from '@/components/hint';
 
 type EditorValue = {
     image: File | null;
@@ -35,7 +37,8 @@ const Editor = ({
     variant = "create"
 }: EditorProps) => {
     const [text, setText] = useState("");
-    const [isToolbarVisible, setIsToolbarVisible] = useState(false);
+    const [isToolbarVisible, setIsToolbarVisible] = useState(true);
+    const [image, setImage] = useState<File | null>(null);
 
     const submitRef = useRef(onSubmit);
     const containerRef = useRef<HTMLDivElement>(null);
@@ -43,6 +46,7 @@ const Editor = ({
     const quillRef = useRef<Quill | null>(null);
     const defaultValueRef = useRef(defaultValue);
     const disabledRef = useRef(disabled);
+    const imageElementRef = useRef<HTMLInputElement>(null);
 
     useLayoutEffect(() => {
         submitRef.current = onSubmit;
@@ -91,10 +95,11 @@ const Editor = ({
                             }
                         },
                         at_symbol: {
-                            key: "atSign",
+                            key: "@",
                             shiftKey: true,
                             handler: () => {
-                                console.log("@ symbol clicked");
+                                quill.insertText(quill.getSelection()?.index || 0, "@")
+                                onMentionSelect
                             }
                         }
                     }
@@ -158,8 +163,21 @@ const Editor = ({
 
     return (
         <div className='flex flex-col'>
+            <input type='file' accept="image/*" ref={imageElementRef} onChange={(event) => setImage(event.target.files![0])} className='hidden'/>
             <div className='flex flex-col border border-slate-200 rounded-md overflow-hidden focus-within:borer-slate-300 focus-within:shadow-sm transition bg:white'>
                 <div className='h-full ql-custom' ref={containerRef} />
+                {!!image && (
+                    <div className='p-2'>
+                        <div className='relative size-[62px] flex items-center justify-center group/image'>
+                            <Hint label='Remove image'>
+                                <button onClick={() => {setImage(null); imageElementRef.current!.value=""}} className='hidden group-hover/image:flex rounded-full bg-black/70 hover:bg-black absolute -top-2.5 -right-2.5 text-white size-6 z-[4] border-2 border-white items-center justify-center'>
+                                    <XIcon className='size-3.5'></XIcon>
+                                </button>
+                            </Hint>
+                            <Image src={URL.createObjectURL(image)} alt='Uploaded image' fill className='rounded-xl overflow-hidden border object-cover'></Image>
+                        </div>
+                    </div>
+                )}
                 <div className='flex px-2 pb-2 z-[5]'>
                     <Button disabled={false} size="sm" variant="ghost" onClick={toggleToolbar}>
                         <PiTextAa className='size-4' />
@@ -169,7 +187,7 @@ const Editor = ({
                             <Smile className='size-4' />
                         </Button>
                     </EmojiPopup>
-                    <Button disabled={false} size="sm" variant="ghost" onClick={() => { }}>
+                    <Button disabled={false} size="sm" variant="ghost" onClick={() => imageElementRef.current?.click()}>
                         <ImageIcon className='size-4' />
                     </Button>
                     <MentionPopup onMentionSelect={onMentionSelect}>
