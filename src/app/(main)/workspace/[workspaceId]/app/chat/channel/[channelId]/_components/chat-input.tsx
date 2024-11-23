@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import dynamic from "next/dynamic";
 import Quill from 'quill';
 import { useCreateMessage } from '@/features/workspaces/messages/api/use-create-message';
@@ -15,6 +15,7 @@ interface ChatInputProps {
 const ChatInput = ({
   placeholder
 }: ChatInputProps) => {
+  const [editorKey, setEditorKey] = useState(0);
   const editorRef = useRef<Quill | null>(null);
 
   const workspaceId = useWorkspaceId();
@@ -34,11 +35,14 @@ const ChatInput = ({
         channelId,
         body
       });
+
+    setEditorKey((prevKey) => prevKey + 1);
   };
 
   return (
     <div className='w-full pb-[5px] pr-[15px]'>
       <Editor
+        key={editorKey}
         placeholder={placeholder}
         onSubmit={handleSubmit}
         disabled={false}

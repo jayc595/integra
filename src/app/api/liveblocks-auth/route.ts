@@ -7,6 +7,8 @@ import { useCurrentMember } from "@/features/workspaces/members/api/use-current-
 import { useGetWorkspace } from "@/features/workspaces/api/use-get-workspace";
 import { Id } from "../../../../convex/_generated/dataModel";
 import { currentUser } from "../../../../convex/getCurrentUser";
+import { useMemberId } from "@/app/hooks/use-member-id";
+import { useGetMember } from "@/features/workspaces/members/api/use-get-member";
 
 const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
 
@@ -18,9 +20,10 @@ export async function POST(request: Request){
     try {
       const workspaceId: Id<"workspaces"> = "k97a6wgj33jppxbybv6yjanpxn70s9c3" as Id<"workspaces">;
       const { room } = await request.json(); // Expecting workspaceId in the request body
-      const user = currentUser();
+      const memberId = useMemberId();
+      const { data: member, isLoading: memberLoading } = useGetMember({ id: memberId });
     
-        if (!user) {
+        if (!member) {
           return new Response("Unauthorized 100", { status: 403 });
         }
     
@@ -41,7 +44,7 @@ export async function POST(request: Request){
     
         // Prepare user info for Liveblocks session
         const userInfo = {
-          name: user.id || "Anonymous",
+          name: member._id || "Anonymous",
         };
     
         // Create Liveblocks session for the member
