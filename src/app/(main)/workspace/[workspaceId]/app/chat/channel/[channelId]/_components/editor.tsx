@@ -10,6 +10,7 @@ import EmojiPopup from '../../../_components/emoji-popup';
 import MentionPopup from '../../../_components/mention-popup';
 import Image from 'next/image';
 import { Hint } from '@/components/hint';
+import { cn } from '@/lib/utils';
 
 type EditorValue = {
     image: File | null;
@@ -173,7 +174,9 @@ const Editor = ({
     return (
         <div className='flex flex-col'>
             <input type='file' accept="image/*" ref={imageElementRef} onChange={(event) => setImage(event.target.files![0])} className='hidden' />
-            <div className='flex flex-col border border-slate-200 rounded-md overflow-hidden focus-within:borer-slate-300 focus-within:shadow-sm transition bg:white'>
+            <div className={cn("flex flex-col border border-slate-200 rounded-md overflow-hidden focus-within:borer-slate-300 focus-within:shadow-sm transition bg:white",
+                disabled && "opacity-50"
+            )}>
                 <div className='h-full ql-custom' ref={containerRef} />
                 {!!image && (
                     <div className='p-2'>
